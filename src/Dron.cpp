@@ -11,12 +11,14 @@ using namespace std;
  * przechowujacych informacje o polozeniu drona
  */
 void Dron::InicjujDrona(unsigned int NrDrona) {
-     Korpus.UstawSkale(SKALA_KORPUSU_DRONA_X,SKALA_KORPUSU_DRONA_Y,SKALA_KORPUSU_DRONA_Z);
+     Wektor3D SkalaDrona(SKALA_KORPUSU_DRONA_X,SKALA_KORPUSU_DRONA_Y,SKALA_KORPUSU_DRONA_Z),
+              SkalaWirnika(SKALA_WIRNIKA_DRONA_X,SKALA_WIRNIKA_DRONA_Y,SKALA_WIRNIKA_DRONA_Z);
+     Korpus.UstawSkale(SkalaDrona);
      Korpus.UstawNazwe_Wzorcowy(WZORZEC_KORPUS);
      Korpus.UstawNazwe_Roboczy(NrDrona);
 
      for (unsigned int i = 0; i < LICZBA_ROTOROW; ++i) {
-          Rotor[i].UstawSkale(SKALA_WIRNIKA_DRONA_X,SKALA_WIRNIKA_DRONA_Y,SKALA_WIRNIKA_DRONA_Z);
+          Rotor[i].UstawSkale(SkalaWirnika);
           Rotor[i].UstawNazwe_Wzorcowy(WZORZEC_ROTOR);
           Rotor[i].UstawNazwe_Roboczy(NrDrona, i);
      }

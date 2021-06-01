@@ -52,16 +52,16 @@ void Scena::InicjujLacze() {
     Lacze.UstawRotacjeXZ(64,65); // Tutaj ustawiany jest widok
 }
 
-void Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gora> NowaGora(new Gora(LiczbaObiektow));
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
-    NowaGora->UstawSkale(Skala[0], Skala[1], Skala[2]);
+    NowaGora->UstawSkale(Skala);
     NowaGora->ZmienPolozenie(Polozenie);
     NowaGora->ZmienOrientacje(Orientacja);
 
-    NowaGora->TworzGore();
+    if (!NowaGora->TworzGore()) return false;
 
     std::string Tymcz = NowaGora->PobierzNazwe_Robocza();
     const char *PlikRoboczy = Tymcz.c_str();
@@ -70,18 +70,20 @@ void Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orie
 
     Przeszkody.push_back(NowaGora);
     LiczbaObiektow++;
+
+    return true;
 }
 
-void Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gran> NowaGran(new Gran(LiczbaObiektow));
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
-    NowaGran->UstawSkale(Skala[0], Skala[1], Skala[2]);
+    NowaGran->UstawSkale(Skala);
     NowaGran->ZmienPolozenie(Polozenie);
     NowaGran->ZmienOrientacje(Orientacja);
 
-    NowaGran->TworzGran();
+    if (!NowaGran->TworzGran()) return false;
 
     std::string Tymcz = NowaGran->PobierzNazwe_Robocza();
     const char *PlikRoboczy = Tymcz.c_str();
@@ -90,18 +92,20 @@ void Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orie
 
     Przeszkody.push_back(NowaGran);
     LiczbaObiektow++;
+
+    return true;
 }
 
-void Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Plaskowyz> NowyPlaskowyz(new Plaskowyz(LiczbaObiektow));
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
-    NowyPlaskowyz->UstawSkale(Skala[0], Skala[1], Skala[2]);
+    NowyPlaskowyz->UstawSkale(Skala);
     NowyPlaskowyz->ZmienPolozenie(Polozenie);
     NowyPlaskowyz->ZmienOrientacje(Orientacja);
 
-    NowyPlaskowyz->TworzPlaskowyz();
+    if (!NowyPlaskowyz->TworzPlaskowyz()) return false;
 
     std::string Tymcz = NowyPlaskowyz->PobierzNazwe_Robocza();
     const char *PlikRoboczy = Tymcz.c_str();
@@ -110,6 +114,8 @@ void Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double
 
     Przeszkody.push_back(NowyPlaskowyz);
     LiczbaObiektow++;
+
+    return true;
 }
 
 /**

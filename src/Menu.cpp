@@ -38,13 +38,13 @@ bool PrzetwarzajMenu(Scena &Sc) {
             if(!ZadajPrzelot(Sc, Kat_obr, Dlugosc_lotu)) return false;
             break;
         case 'd':
-
+            if(!DodajElemPowierz(Sc)) return false;
+            break;
         case 'k': 
             break;
         default:
             cin.ignore(1000,'\n');
             cout << "Wprowadzono nieprawilowa opcje. Sprobuj jeszcze raz" << endl;
-            break;
         }
      } while (Wybor != 'k');
     
@@ -147,12 +147,37 @@ bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc) {
 
 bool DodajElemPowierz(Scena &Sc) {
     int NrElem = 0;
+    Wektor3D Skala;
+    double Wsp_X, Wsp_Y, Orientacja;
+
     cout << "Wybierz rodzaj powierzchniowego elementu" << endl << endl
          << "   1 - Gora z ostrym sztytem" << endl
          << "   2 - Gora z grania" << endl
          << "   3 - Plaskowyz" << endl << endl
          << "Wprowadz numer typu elementu> ";
     cin >> NrElem; cin.ignore(1000,'\n');
-    if (NrElem <1 || NrElem > 3)
-        cout << "Wprowadzono nieprawidlowy numer elementu" << endl;
+    if (NrElem <1 || NrElem > 3) {
+        cerr << "Wprowadzono nieprawidlowy numer elementu" << endl;
+        return false;
+    }
+    cout << endl << endl << "Podaj scale wzdluz kolejnych osi OX, OY, OZ."
+         << endl << "Wprowadz skale: OX OY OZ> ";
+    cin >> Skala;
+    cout << endl << "Podaj wspolrzedne srodka podstawy x,y." << endl
+         << "Wprowadz wspolrzedne: x y> ";
+    cin >> Wsp_X >> Wsp_Y;
+    cout << endl << "Podaj kat obrotu elementu wokol osi OZ." << endl
+         << "Wprowadz kat obrotu: > ";
+    cin >> Orientacja;
+
+    Wektor3D Polozenie(Wsp_X, Wsp_Y, 0);
+
+    if (NrElem == 1) if(!Sc.DodajPrzeszkode_Gora(Skala, Polozenie, Orientacja)) return false;
+    if (NrElem == 2) if(!Sc.DodajPrzeszkode_Gran(Skala, Polozenie, Orientacja)) return false;
+    if (NrElem == 3) if(!Sc.DodajPrzeszkode_Plaskowyz(Skala, Polozenie, Orientacja)) return false;
+
+    cout << endl << "Element zostal dodany do sceny." << endl << endl;
+    Sc.RysujScene();
+
+    return true;
 }

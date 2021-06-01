@@ -55,12 +55,9 @@ class Bryla {
         /**
          * Ustawia skale bryly zgonie z podanymi parametrami.
          * 
-         * @param[in] Skala_X - stopien skalowania w osi X
-         * @param[in] Skala_Y - stopien skalowania w osi Y
-         * @param[in] Skala_Z - stopien skalowania w osi Z
+         * @param[in] SkalaBryly - porzadana skala bryly wyrazona jako wektor
          */
-        void UstawSkale(double Skala_X, double Skala_Y, double Skala_Z)
-            {Skala[0] = Skala_X; Skala[1] = Skala_Y; Skala[2] = Skala_Z;}
+        void UstawSkale(Wektor3D SkalaBryly) {Skala = SkalaBryly;}
 };
 
 #endif

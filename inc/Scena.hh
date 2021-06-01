@@ -80,9 +80,9 @@ class Scena {
          */
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
 
-        void DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
-        void DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
-        void DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
 
         /**
          * Metoda zwracajaca numer aktywnego drona
