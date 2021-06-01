@@ -1,5 +1,5 @@
-#ifndef PRZESZKODA_GORA_HH
-#define PRZESZKODA_GORA_HH
+#ifndef PRZESZKODA_PLASKOWYZ_HH
+#define PRZESZKODA_PLASKOWYZ_HH
 
 /**
  * @file Przeszkoda_plaskowyz.hh
@@ -12,6 +12,8 @@
 #include "Wektor3D.hh"
 #include "Macierz3x3.hh"
 #include <string>
+
+#define WZORZEC_PLASKOWYZA "bryly_wzorcowe/szescian.dat"
 
 /**
  * @brief Klasa modeluje bryle w formie plaskowyza.
@@ -30,6 +32,8 @@ class Plaskowyz : public Bryla {
          */
         double Orientacja;
     public:
+        Plaskowyz() {std::cout << "Stworzono gore bez numeru!" << std::endl;}
+        Plaskowyz(unsigned int NrPlaskowyza);
         /**
          * @brief Metoda tworzy plaskowyz i zapisuje go do pliku 
          */
@@ -38,8 +42,20 @@ class Plaskowyz : public Bryla {
         Wektor3D TranDoUklGlobalnego(const Wektor3D &Wierzch) const;
         void ZmienPolozenie(Wektor3D Translacja) {Polozenie = Translacja;}
         void ZmienOrientacje(double Obrot) {Orientacja = Obrot;}
+    private:
+        /**
+         * Ustawia nazwe pliku wzorcowego na taka podana jako parametr
+         * 
+         * @param[in] NazwaWzorca - nazwa pliku wzorcowego graniastopslupa
+         */
         void UstawNazwe_Wzorcowy(std::string NazwaWzorca) {Nazwa_BrylaWzorcowa = NazwaWzorca;}
-        void UstawNazwe_Roboczy(unsigned int NrGory);
+
+        /**
+         * Ustawia nazwe pliku roboczego na taka podana jako parametr
+         * 
+         * @param[in] NazwaRobocza - nazwa pliku roboczego gory
+         */
+        void UstawNazwe_Roboczy(std::string NazwaRobocza) {Nazwa_BrylaRobocza = NazwaRobocza;}
 
 };
 

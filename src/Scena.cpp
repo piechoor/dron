@@ -69,6 +69,47 @@ void Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orie
     Lacze.DodajNazwePliku(PlikRoboczy);
 
     Przeszkody.push_back(NowaGora);
+    LiczbaObiektow++;
+}
+
+void Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+    shared_ptr<Gran> NowaGran(new Gran(LiczbaObiektow));
+    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
+                                    // znajdowala sie na plaszczyznie powierzchni
+
+    NowaGran->UstawSkale(Skala[0], Skala[1], Skala[2]);
+    NowaGran->ZmienPolozenie(Polozenie);
+    NowaGran->ZmienOrientacje(Orientacja);
+
+    NowaGran->TworzGran();
+
+    std::string Tymcz = NowaGran->PobierzNazwe_Robocza();
+    const char *PlikRoboczy = Tymcz.c_str();
+
+    Lacze.DodajNazwePliku(PlikRoboczy);
+
+    Przeszkody.push_back(NowaGran);
+    LiczbaObiektow++;
+}
+
+void Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+    shared_ptr<Plaskowyz> NowyPlaskowyz(new Plaskowyz(LiczbaObiektow));
+    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
+                                    // znajdowala sie na plaszczyznie powierzchni
+
+    NowyPlaskowyz->UstawSkale(Skala[0], Skala[1], Skala[2]);
+    NowyPlaskowyz->ZmienPolozenie(Polozenie);
+    NowyPlaskowyz->ZmienOrientacje(Orientacja);
+
+    NowyPlaskowyz->TworzPlaskowyz();
+
+    std::string Tymcz = NowyPlaskowyz->PobierzNazwe_Robocza();
+    const char *PlikRoboczy = Tymcz.c_str();
+
+    Lacze.DodajNazwePliku(PlikRoboczy);
+
+    Przeszkody.push_back(NowyPlaskowyz);
+    LiczbaObiektow++;
 }
 
 /**

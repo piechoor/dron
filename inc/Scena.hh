@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <memory> //dla shared_ptr
+
 #include "BrylaGeometryczna.hh"
 #include "Prostopadloscian.hh"
 #include "Wektor3D.hh"
@@ -80,6 +81,8 @@ class Scena {
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
 
         void DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        void DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        void DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
 
         /**
          * Metoda zwracajaca numer aktywnego drona

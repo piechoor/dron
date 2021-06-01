@@ -38,12 +38,8 @@ bool Gran::TworzGran() {
             Plik_BrylaWzorcowa >> Wierzch;
             if (Plik_BrylaWzorcowa.fail()) return false;
 
-            if (Wierzch[2] > -0.5 && Wierzch[2] < 0.5) {
-                Wierzch[0] /= 2; Wierzch[1] /= 2;
-            }
-            else if (Wierzch[2] == 0.5) {
-                Wierzch[0] =0;
-            }
+            if (Wierzch[2] == 0.5) Wierzch[0] = 0;
+            //if (Wierzch[0] == 0.5) Wierzch[0] = 0; Tworzy pionowa sciane na jednym ze zboczy grani
 
             Wierzch = this->Skaluj(Wierzch);
             Wierzch = this->TranDoUklGlobalnego(Wierzch);

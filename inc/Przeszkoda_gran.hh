@@ -1,5 +1,5 @@
-#ifndef PRZESZKODA_GORA_HH
-#define PRZESZKODA_GORA_HH
+#ifndef PRZESZKODA_GRAN_HH
+#define PRZESZKODA_GRAN_HH
 
 /**
  * @file Przeszkoda_gran.hh
@@ -32,8 +32,7 @@ class Gran : public Bryla {
          */
         double Orientacja;
     public:
-        Gran();
-
+        Gran() {std::cout << "Stworzono gran bez numeru!" << std::endl;}
         Gran(unsigned int NrGrani);
 
         /**
@@ -58,7 +57,6 @@ class Gran : public Bryla {
          * @param[in] NazwaRobocza - nazwa pliku roboczego grani
          */
         void UstawNazwe_Roboczy(std::string NazwaRobocza) {Nazwa_BrylaRobocza = NazwaRobocza;}
-
 };
 
 #endif

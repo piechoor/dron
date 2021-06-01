@@ -2,6 +2,13 @@
 
 using namespace std;
 
+Plaskowyz::Plaskowyz(unsigned int NrPlaskowyza) {
+    UstawNazwe_Wzorcowy(WZORZEC_PLASKOWYZA);
+    ostringstream StrWyj;
+    StrWyj << "dat/PlikRoboczy_Gora" << NrPlaskowyza << ".dat";
+    UstawNazwe_Roboczy(StrWyj.str());
+}
+
 /**
  * Metoda przeksztalca wzorcowy szescian na gore
  * stanowiaca jedna z przeszkod. Plaskowyz ten jest rowniez skalowany,

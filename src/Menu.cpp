@@ -16,9 +16,9 @@ bool PrzetwarzajMenu(Scena &Sc) {
     char Wybor;
     double Kat_obr, Dlugosc_lotu;
 
-    Wektor3D testPol(120,120,0), testSkala(30,30,200);
+    Wektor3D testPol(120,120,0), testSkala(30,30,50);
     double testOrient = 45;
-    Sc.DodajPrzeszkode_Gora(testSkala, testPol, testOrient);
+    Sc.DodajPrzeszkode_Plaskowyz(testSkala, testPol, testOrient);
 
 
     if(!Sc.UstawDrony()) return false;
@@ -37,6 +37,8 @@ bool PrzetwarzajMenu(Scena &Sc) {
             cout << "                   Podaj dlugosc lotu> "; cin >> Dlugosc_lotu;
             if(!ZadajPrzelot(Sc, Kat_obr, Dlugosc_lotu)) return false;
             break;
+        case 'd':
+
         case 'k': 
             break;
         default:
@@ -61,6 +63,7 @@ void WyswietlOpcje(Scena &Sc) {
     Sc.PobierzAktywnegoDrona().WyswietlWsp();
     cout << endl << endl << "a - wybierz aktywnego drona" << endl
          << "p - zadaj parametry przelotu" << endl
+         << "d - dodaj element powierzchni" << endl
          << "m - wyswietl menu" << endl << endl
          << "k - koniec dzialania programu" << endl << endl
          << "Aktualna liczba obiektow Wektor3D: " 
@@ -140,4 +143,16 @@ bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc) {
     if(!Sc.ZerujSciezkeLotu()) return false;
     
     return true;
+}
+
+bool DodajElemPowierz(Scena &Sc) {
+    int NrElem = 0;
+    cout << "Wybierz rodzaj powierzchniowego elementu" << endl << endl
+         << "   1 - Gora z ostrym sztytem" << endl
+         << "   2 - Gora z grania" << endl
+         << "   3 - Plaskowyz" << endl << endl
+         << "Wprowadz numer typu elementu> ";
+    cin >> NrElem; cin.ignore(1000,'\n');
+    if (NrElem <1 || NrElem > 3)
+        cout << "Wprowadzono nieprawidlowy numer elementu" << endl;
 }
