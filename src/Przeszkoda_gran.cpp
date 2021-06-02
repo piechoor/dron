@@ -2,7 +2,12 @@
 
 using namespace std;
 
-
+/**
+ * Konstruktor parametryczny grani, tworzacy plik
+ * roboczy bryly zgodnie z numerem podanym jako parametr.
+ * 
+ * @param[in] NrGrani - numer wykorzystywany w tworzeniu nazwy pliku roboczego 
+ */
 Gran::Gran(unsigned int NrGrani) {
     UstawNazwe_Wzorcowy(WZORZEC_GRANI);
     ostringstream StrWyj;
@@ -15,7 +20,7 @@ Gran::Gran(unsigned int NrGrani) {
  * stanowiaca jedna z przeszkod. Gran ta jest rowniez skalowana,
  * obracana i translowana zgodnie z wartosciami jej pol.
  * 
- * @retval true - operacja tworzenia gory powiodla sie
+ * @retval true - operacja tworzenia grani powiodla sie
  * @retval false - opracja nie powiodla sie
  */
 bool Gran::TworzGran() {
@@ -65,6 +70,13 @@ Wektor3D Gran::TranDoUklGlobalnego(const Wektor3D &Wierzch) const {
     return MacRotacji * Wierzch + Polozenie;
 }
 
+/**
+ * Metoda usuwajaca gran ze sceny. Czysci ona plik roboczy bryly
+ * przez co nie jest ona wiecej rysowana na scenie.
+ * 
+ * @retval true - powodzenie w usunieciu bryly
+ * @retval false - nie udalo sie otworzyc pliku roboczego bryly
+ */
 bool Gran::UsunGran() {
     ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
     if (!Plik_BrylaWynikowa.is_open()) {

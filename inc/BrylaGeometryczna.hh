@@ -59,8 +59,16 @@ class Bryla {
          */
         void UstawSkale(Wektor3D SkalaBryly) {Skala = SkalaBryly;}
 
+        /**
+         * Metoda pozwalajaca na wyswietlanie wspolrzednych klas pochodnych
+         */
         virtual void WyswietlWsp() const { std::cout << "Bryla nie posiada wspolrzednych" << std::endl;}
 
+        /**
+         * Zwraca nazwe obiektu.
+         * 
+         * @return const char* - wskaznik na lancuch znakow bedacych nazwa obiektu
+         */
         virtual const char* Nazwa() const {return "Bryla Geometryczna";}
 };
 

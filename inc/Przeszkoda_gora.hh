@@ -32,8 +32,16 @@ class Gora : public Bryla {
          */
         double Orientacja;
     public:
+        /**
+         * Podstawowy konstruktor gory.
+         */
         Gora() {}
+
+        /**
+         * Konstrutor parametryczny tworzacy nazwe robocza pliku.
+         */
         Gora(unsigned int NrGory);
+
         /**
          * @brief Metoda tworzy gore i zapisuje ja do pliku 
          */
@@ -58,14 +66,29 @@ class Gora : public Bryla {
          */
         void ZmienOrientacje(double Obrot) {Orientacja = Obrot;}
 
+        /**
+         * Wsywietla wspolrzedna X i Y przeszkody w formacie (X, Y)
+         */
         virtual void WyswietlWsp() const override { std::cout << "(" << Polozenie[0] << ", " << Polozenie[1] << ")";}
 
+        /**
+         * Zwraca nazwe obiektu.
+         * 
+         * @return const char* - wskaznik na lancuch znakow bedacych nazwa obiektu
+         */
         virtual const char* Nazwa() const override {return "Gora z ostrym szczytem";}
 
+        /**
+         * @brief Usuwa gore ze sceny i jako obiekt. 
+         */
         ~Gora();
 
     private:
+        /**
+         * @brief Metoda usuwajaca gore.
+         */
         bool UsunGore();
+
         /**
          * Ustawia nazwe pliku wzorcowego na taka podana jako parametr
          * 
@@ -79,8 +102,6 @@ class Gora : public Bryla {
          * @param[in] NazwaRobocza - nazwa pliku roboczego gory
          */
         void UstawNazwe_Roboczy(std::string NazwaRobocza) {Nazwa_BrylaRobocza = NazwaRobocza;}
-
-
 };
 
 #endif

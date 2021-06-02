@@ -61,9 +61,22 @@ void Scena::InicjujLacze() {
     Lacze.UstawRotacjeXZ(64,65); // Tutaj ustawiany jest widok
 }
 
+/**
+ * Metoda dodajaca na scene przeszkode w formie gory.
+ * Pozwala uzytkownikowi na skalowanie przeszkody, jej
+ * tanslacje oraz obrot wokol osi Z. Przeszkoda jest alokowana
+ * dynamicznie za pomoca listy wskaznikow wspoldzielonych.
+ * 
+ * @param[in] Skala - wektor reprezentujacy czynniki skalujace przeszkode wokol 3 osi
+ * @param[in] Polozenie - pozadane polozenie przeszkody na scenie
+ * @param[in] Orientacja - kat obrotu przeszkody wokol osi Z
+ * 
+ * @retval true - dodanie przeszkody powiodlo sie
+ * @retval false - nastapil blad podczas dodawania przeszkody
+ */
 bool Scena::DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gora> NowaGora(new Gora(LiczbaObiektow));
-    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
+    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci grani tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
     NowaGora->UstawSkale(Skala);
@@ -83,9 +96,22 @@ bool Scena::DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, doub
     return true;
 }
 
+/**
+ * Metoda dodajaca na scene przeszkode w formie grani.
+ * Pozwala uzytkownikowi na skalowanie przeszkody, jej
+ * tanslacje oraz obrot wokol osi Z. Przeszkoda jest alokowana
+ * dynamicznie za pomoca listy wskaznikow wspoldzielonych.
+ * 
+ * @param[in] Skala - wektor reprezentujacy czynniki skalujace przeszkode wokol 3 osi
+ * @param[in] Polozenie - pozadane polozenie przeszkody na scenie
+ * @param[in] Orientacja - kat obrotu przeszkody wokol osi Z
+ * 
+ * @retval true - dodanie przeszkody powiodlo sie
+ * @retval false - nastapil blad podczas dodawania przeszkody
+ */
 bool Scena::DodajPrzeszkode_Gran(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gran> NowaGran(new Gran(LiczbaObiektow));
-    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
+    Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci plaskowyza tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
     NowaGran->UstawSkale(Skala);
@@ -105,6 +131,19 @@ bool Scena::DodajPrzeszkode_Gran(const Wektor3D &Skala, Wektor3D Polozenie, doub
     return true;
 }
 
+/**
+ * Metoda dodajaca na scene przeszkode w formie plaskowyza.
+ * Pozwala uzytkownikowi na skalowanie przeszkody, jej
+ * tanslacje oraz obrot wokol osi Z. Przeszkoda jest alokowana
+ * dynamicznie za pomoca listy wskaznikow wspoldzielonych.
+ * 
+ * @param[in] Skala - wektor reprezentujacy czynniki skalujace przeszkode wokol 3 osi
+ * @param[in] Polozenie - pozadane polozenie przeszkody na scenie
+ * @param[in] Orientacja - kat obrotu przeszkody wokol osi Z
+ * 
+ * @retval true - dodanie przeszkody powiodlo sie
+ * @retval false - nastapil blad podczas dodawania przeszkody
+ */
 bool Scena::DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Plaskowyz> NowyPlaskowyz(new Plaskowyz(LiczbaObiektow));
 
@@ -128,6 +167,17 @@ bool Scena::DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie,
     return true;
 }
 
+/**
+ * Pozwala uzytkownikowi na usuniecie wybranej przeszkody ze sceny.
+ * Uzytkownik ma mozliwosc wyboru przeszkody z listy.
+ * Jezeli wybranie zostany numer bryly nieznajdujacej sie na scenie
+ * albo nie ma na niej juz zadnych usuwalnych elementow 
+ * funkcja zakonczy swoje dzialanie i zwroci false.
+ * 
+ * @return true - prawidlowe usuniecie wybranej przeszkody ze sceny
+ * @return false - brak elementow na scenie badz wybrano nieprawdlowy
+ * indeks bryly do usuniecia
+ */
 bool Scena::UsunPrzeszkode() {
     unsigned int NumerElem = 1;
     std::list<std::shared_ptr<Bryla>>::iterator iter = Przeszkody.begin();
@@ -188,8 +238,8 @@ bool Scena::UstawDrony() {
  * jako argumenty jej wywolania. Zapisuje ta sciezkie do pliku i wyswietla
  * ja na scenie.
  * 
- * @param[in] Dlugosc - dlugosc trasy przelotu drona
- * @param[in] Kat  - kat o ktory obroci sie dron
+ * @param[in][in] Dlugosc - dlugosc trasy przelotu drona
+ * @param[in][in] Kat  - kat o ktory obroci sie dron
  * 
  * @retval true - poprawnie udalo sie zrealizowac wyznaczenie trasy lotu drona
  * @retval false - operacja ta nie powiodla sie

@@ -56,7 +56,10 @@ class Scena {
          * Lista przeszkod znajdujacych sie na scenie
          */
         std::list<std::shared_ptr<Bryla>> Przeszkody;
-
+        
+        /**
+         * Liczba przeszkod na scenie
+         */
         unsigned int LiczbaObiektow;
 
     public:
@@ -79,10 +82,24 @@ class Scena {
          */
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
 
+        /**
+         * @brief Metoda dodaje na scene gore w zadanym formacie
+         */
         bool DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
+
+        /**
+         * @brief Metoda dodaje na scene gran w zadanym formacie
+         */
         bool DodajPrzeszkode_Gran(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
+        
+        /**
+         * @brief Metoda dodaje na scene plaskowyz w zadanym formacie
+         */
         bool DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
 
+        /**
+         * @brief Pozwala na wybranie i usuniecie przeszkody ze sceny
+         */
         bool UsunPrzeszkode(); 
         /**
          * Metoda zwracajaca numer aktywnego drona

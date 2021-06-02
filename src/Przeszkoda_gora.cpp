@@ -2,7 +2,12 @@
 
 using namespace std;
 
-
+/**
+ * Konstruktor parametryczny gory, tworzacy plik
+ * roboczy bryly zgodnie z numerem podanym jako parametr.
+ * 
+ * @param[in] NrGory - numer wykorzystywany w tworzeniu nazwy pliku roboczego 
+ */
 Gora::Gora(unsigned int NrGory) {
     UstawNazwe_Wzorcowy(WZORZEC_GORY);
     ostringstream StrWyj;
@@ -72,7 +77,13 @@ Wektor3D Gora::TranDoUklGlobalnego(const Wektor3D &Wierzch) const {
     return MacRotacji * Wierzch + Polozenie;
 }
 
-
+/**
+ * Metoda usuwajaca gore ze sceny. Czysci ona plik roboczy bryly
+ * przez co nie jest ona wiecej rysowana na scenie.
+ * 
+ * @retval true - powodzenie w usunieciu bryly
+ * @retval false - nie udalo sie otworzyc pliku roboczego bryly
+ */
 bool Gora::UsunGore() {
     ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
     if (!Plik_BrylaWynikowa.is_open()) {
@@ -85,9 +96,8 @@ bool Gora::UsunGore() {
 }
 
 /**
- * Destruktor - usuwa wszystkie dane z pliku
- * roboczego obiektu gora, tak aby gnuplot nie
- * rysowal go na scenie.
+ * Destruktor usuwajacy bryle ze sceny. Jezeli operacja ta
+ * sie nie uda konczy program.
  */
 Gora::~Gora() {
     if (!UsunGore()) {

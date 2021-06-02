@@ -146,6 +146,16 @@ bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc) {
     return true;
 }
 
+/**
+ * Funckja pozwala uzytkownikowi na dodanie konretnergo elementu sceny - przeszkody.
+ * Umozliwia ona wybor przeszkody z wyswietlonej listy.
+ * Udostepnia takze uzytkownikowi mozliwosc skalowania,
+ * translacji i obrotu pozadanej przeszkody. Wyswietla informacje o liczbach wektorow.
+ * 
+ * @param[in] Sc - scena, na ktora dodajemy przeszody
+ * @return true - dodanie przeszkody powiodlo sie
+ * @return false - wystapil blad podczas dodawania przeszkody
+ */
 bool DodajElemPowierz(Scena &Sc) {
     int NrElem = 0;
     Wektor3D Skala; Skala.UstawWar(1,1,1);
@@ -182,7 +192,7 @@ bool DodajElemPowierz(Scena &Sc) {
          << Wektor3D::PobierzLiczbeAktual() << endl
          << "  Laczna liczba obiektow Wektor3D: " 
          << Wektor3D::PobierzLiczbeStworz() << endl << endl;
-         
+
     Sc.RysujScene();
 
     return true;

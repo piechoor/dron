@@ -36,9 +36,9 @@ void PrzetwWyborDrona(Scena &Sc);
  */
 bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc);
 
+/**
+ * @brief Pozwala na dodanie wybranej przeszkody na scene
+ */
 bool DodajElemPowierz(Scena &Sc);
-
-void UsunElemPowierz(Scena &Sc);
-
 
 #endif

@@ -2,6 +2,12 @@
 
 using namespace std;
 
+/**
+ * Konstruktor parametryczny plaskowyza, tworzacy plik
+ * roboczy bryly zgodnie z numerem podanym jako parametr.
+ * 
+ * @param[in] NrPlaskowyza - numer wykorzystywany w tworzeniu nazwy pliku roboczego 
+ */
 Plaskowyz::Plaskowyz(unsigned int NrPlaskowyza) {
     UstawNazwe_Wzorcowy(WZORZEC_PLASKOWYZA);
     ostringstream StrWyj;
@@ -10,7 +16,7 @@ Plaskowyz::Plaskowyz(unsigned int NrPlaskowyza) {
 }
 
 /**
- * Metoda przeksztalca wzorcowy szescian na gore
+ * Metoda przeksztalca wzorcowy szescian na plaskowyz
  * stanowiaca jedna z przeszkod. Plaskowyz ten jest rowniez skalowany,
  * obracany i translowany zgodnie z wartosciami jego pol.
  * 
@@ -64,6 +70,13 @@ Wektor3D Plaskowyz::TranDoUklGlobalnego(const Wektor3D &Wierzch) const {
     return MacRotacji * Wierzch + Polozenie;
 }
 
+/**
+ * Metoda usuwajaca plaskowyz ze sceny. Czysci ona plik roboczy bryly
+ * przez co nie jest ona wiecej rysowana na scenie.
+ * 
+ * @retval true - powodzenie w usunieciu bryly
+ * @retval false - nie udalo sie otworzyc pliku roboczego bryly
+ */
 bool Plaskowyz::UsunPlaskowyz() {
     ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
     if (!Plik_BrylaWynikowa.is_open()) {
@@ -76,9 +89,8 @@ bool Plaskowyz::UsunPlaskowyz() {
 }
 
 /**
- * Destruktor - usuwa wszystkie dane z pliku
- * roboczego obiektu gora, tak aby gnuplot nie
- * rysowal go na scenie.
+ * Destruktor usuwajacy bryle ze sceny. Jezeli operacja ta
+ * sie nie uda konczy program.
  */
 Plaskowyz::~Plaskowyz() {
     if (!UsunPlaskowyz()) {
