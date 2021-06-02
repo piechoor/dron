@@ -16,7 +16,6 @@
 
 #define LICZBA_DRONOW 2
 #define POCZ_WYSOKOSC_DRONA 8
-#define LICZBA_OBIEKTOW_STARTOWYCH 4
 
 #define POCZ_WSP_X_DRON1 20
 #define POCZ_WSP_Y_DRON1 20
@@ -84,7 +83,7 @@ class Scena {
         bool DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
         bool DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
 
-        void UsunPrzeszkode(); 
+        bool UsunPrzeszkode(); 
         /**
          * Metoda zwracajaca numer aktywnego drona
          * 

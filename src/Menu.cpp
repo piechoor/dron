@@ -30,13 +30,17 @@ bool PrzetwarzajMenu(Scena &Sc) {
         case 'p':
             cout << "Podaj kierunek lotu (kat w stopniach)> "; cin >> Kat_obr;
             cout << "                   Podaj dlugosc lotu> "; cin >> Dlugosc_lotu;
-            if(!ZadajPrzelot(Sc, Kat_obr, Dlugosc_lotu)) return false;
+            if(!ZadajPrzelot(Sc, Kat_obr, Dlugosc_lotu))
+                cout << "Nie udalo sie przeprowadzic przelotu drona" << endl << endl;
             break;
         case 'd':
-            if(!DodajElemPowierz(Sc)) return false;
+            if(!DodajElemPowierz(Sc))
+                cout << "Nie udalo dodac sie przeszkody" << endl << endl;
             break;
         case 'u':
-            UsunElemPowierz(Sc); break;
+            if(!Sc.UsunPrzeszkode())
+                cout << "Nie udalo usunac sie przeszkody" << endl << endl;
+            break;
         case 'k': 
             break;
         default:
@@ -177,9 +181,4 @@ bool DodajElemPowierz(Scena &Sc) {
     Sc.RysujScene();
 
     return true;
-}
-
-void UsunElemPowierz(Scena &Sc) {
-    
-    Sc.UsunPrzeszkode();
 }

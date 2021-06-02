@@ -8,7 +8,7 @@ using namespace std;
  */
 Scena::Scena() {
     NrAktywnegoDrona = 0;
-    LiczbaObiektow = LICZBA_OBIEKTOW_STARTOWYCH;
+    LiczbaObiektow = 0;
     for (unsigned int i = 0; i < LICZBA_DRONOW; ++i)
         TabDronow[i].InicjujDrona(i);
     this->InicjujLacze();
@@ -128,7 +128,7 @@ bool Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double
     return true;
 }
 
-void Scena::UsunPrzeszkode() {
+bool Scena::UsunPrzeszkode() {
     unsigned int NumerElem = 1;
     std::list<std::shared_ptr<Bryla>>::iterator iter = Przeszkody.begin();
     
@@ -142,15 +142,19 @@ void Scena::UsunPrzeszkode() {
     cout << endl << "Podaj numer elementu> ";
     cin >> NumerElem;
     
-    if (NumerElem < 1 || NumerElem > LiczbaObiektow) 
+    if (NumerElem < 1 || NumerElem > LiczbaObiektow) {
+        cerr << "Podano nieprawidlowy numer elementu" << endl;
+        return false;
+    }
 
     advance(iter, NumerElem - 1);
     Przeszkody.erase(iter);
 
-    cout << endl << endl << "Element zostal usuniety." << endl << endl;
+    cout << endl << endl << "Element zostal usuniety." << endl <<"Liczba Elementow " << LiczbaObiektow << endl << "Numer Elementu " << NumerElem << endl;
     --LiczbaObiektow;
 
     RysujScene();
+    return true;
 }
 
 
