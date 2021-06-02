@@ -205,7 +205,12 @@ bool Scena::UsunPrzeszkode() {
     advance(iter, NumerElem - 1);
     Przeszkody.erase(iter);
 
-    cout << endl << endl << "Element zostal usuniety." << endl << endl;
+    cout << endl << endl << "Element zostal usuniety." << endl << endl
+         << "Aktualna liczba obiektow Wektor3D: " 
+         << Wektor3D::PobierzLiczbeAktual() << endl
+         << "  Laczna liczba obiektow Wektor3D: " 
+         << Wektor3D::PobierzLiczbeStworz() << endl << endl;
+         
     --LiczbaObiektow;
 
     RysujScene();

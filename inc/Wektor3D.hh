@@ -40,7 +40,7 @@ class Wektor3D : public Wektor<3> {
          * Konstruktor kapiujacy dla klasy Wektor3D, inkrementuje licznik
          * stworzonych wektorow 3D
          */
-        //Wektor3D(const Wektor3D &Wek) : Wektor<3>(Wek) {(*this) = Wek; ++StworzonychWek;}
+        Wektor3D(const Wektor3D &Wek) {(*this) = Wek; ++StworzonychWek;}
 
         /**
          * Kontruktor pobierajacy trzy parametry i przypisywujacy je do 
@@ -70,7 +70,7 @@ class Wektor3D : public Wektor<3> {
         void UstawWar(double wartosc_x, double wartosc_y, double wartosc_z)
             {(*this)[0] = wartosc_x; (*this)[1] = wartosc_y; (*this)[2] = wartosc_z;}
         
-
+        Wektor3D& operator = (const Wektor3D &Wek) {(*this)[0]=Wek[0];(*this)[1]=Wek[1];(*this)[2]=Wek[2]; return *this;}
         /**
          * Metoda zwraca liczbe aktualnie istniejacych wektorow 3D
          * 
