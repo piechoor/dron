@@ -38,7 +38,7 @@ class Wektor {
 
     Wektor(const Wektor<Rozmiar> &Wek) {(*this) = Wek;}
 
-     //~Wektor() {}
+    ~Wektor() {}
 
     /**
      * @brief Zwraca wartość modułu między punktami wyrażonymi jako wektory
