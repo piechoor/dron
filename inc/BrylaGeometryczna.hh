@@ -58,6 +58,10 @@ class Bryla {
          * @param[in] SkalaBryly - porzadana skala bryly wyrazona jako wektor
          */
         void UstawSkale(Wektor3D SkalaBryly) {Skala = SkalaBryly;}
+
+        virtual void WyswietlWsp() const { std::cout << "Bryla nie posiada wspolrzednych" << std::endl;}
+
+        virtual const char* Nazwa() const {return "Bryla Geometryczna";}
 };
 
 #endif

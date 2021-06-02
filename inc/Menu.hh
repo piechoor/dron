@@ -38,5 +38,7 @@ bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc);
 
 bool DodajElemPowierz(Scena &Sc);
 
+void UsunElemPowierz(Scena &Sc);
+
 
 #endif

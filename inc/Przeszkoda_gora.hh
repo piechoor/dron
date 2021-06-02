@@ -32,7 +32,7 @@ class Gora : public Bryla {
          */
         double Orientacja;
     public:
-        Gora() {std::cout << "Stworzono gore bez numeru!" << std::endl;}
+        Gora() {}
         Gora(unsigned int NrGory);
         /**
          * @brief Metoda tworzy gore i zapisuje ja do pliku 
@@ -58,11 +58,14 @@ class Gora : public Bryla {
          */
         void ZmienOrientacje(double Obrot) {Orientacja = Obrot;}
 
-        bool UsunGore();
+        virtual void WyswietlWsp() const override { std::cout << "(" << Polozenie[0] << ", " << Polozenie[1] << ")";}
+
+        virtual const char* Nazwa() const override {return "Gora z ostrym szczytem";}
 
         ~Gora();
 
     private:
+        bool UsunGore();
         /**
          * Ustawia nazwe pliku wzorcowego na taka podana jako parametr
          * 

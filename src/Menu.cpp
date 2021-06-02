@@ -16,11 +16,6 @@ bool PrzetwarzajMenu(Scena &Sc) {
     char Wybor;
     double Kat_obr, Dlugosc_lotu;
 
-    Wektor3D testPol(120,120,0), testSkala(30,30,50);
-    double testOrient = 45;
-    Sc.DodajPrzeszkode_Plaskowyz(testSkala, testPol, testOrient);
-
-
     if(!Sc.UstawDrony()) return false;
     if(!Sc.ZerujSciezkeLotu()) return false;
     Sc.RysujScene();
@@ -40,6 +35,8 @@ bool PrzetwarzajMenu(Scena &Sc) {
         case 'd':
             if(!DodajElemPowierz(Sc)) return false;
             break;
+        case 'u':
+            UsunElemPowierz(Sc); break;
         case 'k': 
             break;
         default:
@@ -180,4 +177,9 @@ bool DodajElemPowierz(Scena &Sc) {
     Sc.RysujScene();
 
     return true;
+}
+
+void UsunElemPowierz(Scena &Sc) {
+    
+    Sc.UsunPrzeszkode();
 }

@@ -84,6 +84,7 @@ class Scena {
         bool DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
         bool DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
 
+        void UsunPrzeszkode(); 
         /**
          * Metoda zwracajaca numer aktywnego drona
          * 

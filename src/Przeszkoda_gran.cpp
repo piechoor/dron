@@ -64,3 +64,26 @@ Wektor3D Gran::TranDoUklGlobalnego(const Wektor3D &Wierzch) const {
     UstawRotacjeZ(MacRotacji, Orientacja);
     return MacRotacji * Wierzch + Polozenie;
 }
+
+bool Gran::UsunGran() {
+    ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
+    if (!Plik_BrylaWynikowa.is_open()) {
+        cerr << endl << " Blad otwarcia do zapisu pliku: " << this->PobierzNazwe_Robocza() 
+            << endl << endl;
+        return false;
+        }
+    else Plik_BrylaWynikowa << endl;
+    return true;
+}
+
+/**
+ * Destruktor - usuwa wszystkie dane z pliku
+ * roboczego obiektu gora, tak aby gnuplot nie
+ * rysowal go na scenie.
+ */
+Gran::~Gran() {
+    if (!UsunGran()) {
+        cerr << "Blad destrukcji grani" << endl;
+        exit(0);
+    }
+}

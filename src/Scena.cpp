@@ -13,9 +13,18 @@ Scena::Scena() {
         TabDronow[i].InicjujDrona(i);
     this->InicjujLacze();
 
-    // Dodawanie wstepnych elementow powierzchni:
-    // shared_ptr<Gora> Gora1(new Gora());
-    // Przeszkody.push_back(Gora1);
+    Wektor3D Pol(30,150,0), Sk(20,20,200);
+    double testOrient = 45;
+    DodajPrzeszkode_Gora(Sk, Pol, testOrient);
+
+    Pol = {170, 120, 0}; Sk = {30,60,100}; testOrient = 15;
+    DodajPrzeszkode_Gora(Sk, Pol, testOrient);
+
+    Pol = {100, 180, 0}; Sk = {30,80,130}; testOrient = 95;
+    DodajPrzeszkode_Gran(Sk, Pol, testOrient);
+
+    Pol = {150, 30, 0}; Sk = {15,15,20}; testOrient = 70;
+    DodajPrzeszkode_Plaskowyz(Sk, Pol, testOrient);
 }
 
 /**
@@ -98,6 +107,7 @@ bool Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orie
 
 bool Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Plaskowyz> NowyPlaskowyz(new Plaskowyz(LiczbaObiektow));
+
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
 
@@ -117,6 +127,32 @@ bool Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double
 
     return true;
 }
+
+void Scena::UsunPrzeszkode() {
+    unsigned int NumerElem = 1;
+    std::list<std::shared_ptr<Bryla>>::iterator iter = Przeszkody.begin();
+    
+    cout << endl << "Wybierz element powierzchni do usuniecia:" << endl;
+    for (const shared_ptr<Bryla> &Wsk : Przeszkody) {
+        cout << NumerElem << ". ";
+        Wsk->WyswietlWsp();
+        cout << " " << Wsk->Nazwa() << endl;
+        NumerElem++;
+    }
+    cout << endl << "Podaj numer elementu> ";
+    cin >> NumerElem;
+    
+    if (NumerElem < 1 || NumerElem > LiczbaObiektow) 
+
+    advance(iter, NumerElem - 1);
+    Przeszkody.erase(iter);
+
+    cout << endl << endl << "Element zostal usuniety." << endl << endl;
+    --LiczbaObiektow;
+
+    RysujScene();
+}
+
 
 /**
  * Metoda zmieniajaca polozenie dronow na ich startowe pozycje

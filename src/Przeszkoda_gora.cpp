@@ -26,7 +26,7 @@ bool Gora::TworzGore() {
      return false;
      }
      ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
-     cout << "NAZWA ROBOCZA" << this->PobierzNazwe_Robocza() << endl;
+
      if (!Plik_BrylaWynikowa.is_open()) {
      cerr << endl << " Blad otwarcia do zapisu pliku: " << this->PobierzNazwe_Robocza() 
           << endl << endl;
@@ -90,5 +90,8 @@ bool Gora::UsunGore() {
  * rysowal go na scenie.
  */
 Gora::~Gora() {
-    cout << "Destruktor gory" << endl;
+    if (!UsunGore()) {
+        cerr << "Blad destrukcji gory" << endl;
+        exit(0);
+    }
 }

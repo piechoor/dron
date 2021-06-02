@@ -63,3 +63,26 @@ Wektor3D Plaskowyz::TranDoUklGlobalnego(const Wektor3D &Wierzch) const {
     UstawRotacjeZ(MacRotacji, Orientacja);
     return MacRotacji * Wierzch + Polozenie;
 }
+
+bool Plaskowyz::UsunPlaskowyz() {
+    ofstream Plik_BrylaWynikowa(this->PobierzNazwe_Robocza());
+    if (!Plik_BrylaWynikowa.is_open()) {
+        cerr << endl << " Blad otwarcia do zapisu pliku: " << this->PobierzNazwe_Robocza() 
+            << endl << endl;
+        return false;
+        }
+    else Plik_BrylaWynikowa << endl;
+    return true;
+}
+
+/**
+ * Destruktor - usuwa wszystkie dane z pliku
+ * roboczego obiektu gora, tak aby gnuplot nie
+ * rysowal go na scenie.
+ */
+Plaskowyz::~Plaskowyz() {
+    if (!UsunPlaskowyz()) {
+        cerr << "Blad destrukcji plaskowyza" << endl;
+        exit(0);
+    }
+}

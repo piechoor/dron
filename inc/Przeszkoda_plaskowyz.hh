@@ -32,7 +32,7 @@ class Plaskowyz : public Bryla {
          */
         double Orientacja;
     public:
-        Plaskowyz() {std::cout << "Stworzono gore bez numeru!" << std::endl;}
+        Plaskowyz() {}
         Plaskowyz(unsigned int NrPlaskowyza);
         /**
          * @brief Metoda tworzy plaskowyz i zapisuje go do pliku 
@@ -42,7 +42,14 @@ class Plaskowyz : public Bryla {
         Wektor3D TranDoUklGlobalnego(const Wektor3D &Wierzch) const;
         void ZmienPolozenie(Wektor3D Translacja) {Polozenie = Translacja;}
         void ZmienOrientacje(double Obrot) {Orientacja = Obrot;}
+
+        virtual void WyswietlWsp() const override { std::cout << "(" << Polozenie[0] << ", " << Polozenie[1] << ")";}
+        
+        virtual const char* Nazwa() const override {return "Plaskowyz";}
+
+        ~Plaskowyz();
     private:
+        bool UsunPlaskowyz();
         /**
          * Ustawia nazwe pliku wzorcowego na taka podana jako parametr
          * 

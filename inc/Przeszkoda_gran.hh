@@ -32,7 +32,7 @@ class Gran : public Bryla {
          */
         double Orientacja;
     public:
-        Gran() {std::cout << "Stworzono gran bez numeru!" << std::endl;}
+        Gran() {}
         Gran(unsigned int NrGrani);
 
         /**
@@ -43,7 +43,14 @@ class Gran : public Bryla {
         Wektor3D TranDoUklGlobalnego(const Wektor3D &Wierzch) const;
         void ZmienPolozenie(Wektor3D Translacja) {Polozenie = Translacja;}
         void ZmienOrientacje(double Obrot) {Orientacja = Obrot;}
+
+        virtual void WyswietlWsp() const override { std::cout << "(" << Polozenie[0] << ", " << Polozenie[1] << ")";}
+
+        virtual const char* Nazwa() const override {return "Gora z grania";}
+        
+        ~Gran();
     private:
+        bool UsunGran();
         /**
          * Ustawia nazwe pliku wzorcowego na taka podana jako parametr
          * 
