@@ -148,7 +148,7 @@ bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc) {
 
 bool DodajElemPowierz(Scena &Sc) {
     int NrElem = 0;
-    Wektor3D Skala;
+    Wektor3D Skala; Skala.UstawWar(1,1,1);
     double Wsp_X, Wsp_Y, Orientacja;
 
     cout << "Wybierz rodzaj powierzchniowego elementu" << endl << endl
@@ -177,7 +177,12 @@ bool DodajElemPowierz(Scena &Sc) {
     if (NrElem == 2) if(!Sc.DodajPrzeszkode_Gran(Skala, Polozenie, Orientacja)) return false;
     if (NrElem == 3) if(!Sc.DodajPrzeszkode_Plaskowyz(Skala, Polozenie, Orientacja)) return false;
 
-    cout << endl << "Element zostal dodany do sceny." << endl << endl;
+    cout << endl << "Element zostal dodany do sceny." << endl << endl
+         << "Aktualna liczba obiektow Wektor3D: " 
+         << Wektor3D::PobierzLiczbeAktual() << endl
+         << "  Laczna liczba obiektow Wektor3D: " 
+         << Wektor3D::PobierzLiczbeStworz() << endl << endl;
+         
     Sc.RysujScene();
 
     return true;

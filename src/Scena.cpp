@@ -61,7 +61,7 @@ void Scena::InicjujLacze() {
     Lacze.UstawRotacjeXZ(64,65); // Tutaj ustawiany jest widok
 }
 
-bool Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gora> NowaGora(new Gora(LiczbaObiektow));
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
@@ -83,7 +83,7 @@ bool Scena::DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orie
     return true;
 }
 
-bool Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Gran(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Gran> NowaGran(new Gran(LiczbaObiektow));
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
                                     // znajdowala sie na plaszczyznie powierzchni
@@ -105,7 +105,7 @@ bool Scena::DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orie
     return true;
 }
 
-bool Scena::DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja) {
+bool Scena::DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja) {
     shared_ptr<Plaskowyz> NowyPlaskowyz(new Plaskowyz(LiczbaObiektow));
 
     Polozenie[2] += 0.5 * Skala[2]; // Dostosowanie wysokosci gory tak aby po skalowaniu
@@ -132,6 +132,11 @@ bool Scena::UsunPrzeszkode() {
     unsigned int NumerElem = 1;
     std::list<std::shared_ptr<Bryla>>::iterator iter = Przeszkody.begin();
     
+    if (LiczbaObiektow == 0) {
+        cout << "Brak elementow na scenie" << endl;
+        return false;
+    }
+
     cout << endl << "Wybierz element powierzchni do usuniecia:" << endl;
     for (const shared_ptr<Bryla> &Wsk : Przeszkody) {
         cout << NumerElem << ". ";
@@ -150,7 +155,7 @@ bool Scena::UsunPrzeszkode() {
     advance(iter, NumerElem - 1);
     Przeszkody.erase(iter);
 
-    cout << endl << endl << "Element zostal usuniety." << endl <<"Liczba Elementow " << LiczbaObiektow << endl << "Numer Elementu " << NumerElem << endl;
+    cout << endl << endl << "Element zostal usuniety." << endl << endl;
     --LiczbaObiektow;
 
     RysujScene();

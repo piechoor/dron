@@ -79,9 +79,9 @@ class Scena {
          */
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
 
-        bool DodajPrzeszkode_Gora(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
-        bool DodajPrzeszkode_Gran(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
-        bool DodajPrzeszkode_Plaskowyz(Wektor3D Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Gran(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
+        bool DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie, double Orientacja);
 
         bool UsunPrzeszkode(); 
         /**

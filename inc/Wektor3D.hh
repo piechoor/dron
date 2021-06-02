@@ -37,10 +37,10 @@ class Wektor3D : public Wektor<3> {
         Wektor3D() : Wektor() {++StworzonychWek;} 
 
         /**
-         * Konstruktor kapiujacy dla klasy Wektor3D, inkrementuje licznik
-         * stworzonych wektorow 3D
-         */
-        //Wektor3D(const Wektor3D &Wek) {(*this) = Wek; ++StworzonychWek;}
+        //  * Konstruktor kapiujacy dla klasy Wektor3D, inkrementuje licznik
+        //  * stworzonych wektorow 3D
+        //  */
+        // Wektor3D(const Wektor3D &Wek) {(*this) = Wek; ++StworzonychWek;}
 
         /**
          * Kontruktor pobierajacy trzy parametry i przypisywujacy je do 
@@ -58,7 +58,8 @@ class Wektor3D : public Wektor<3> {
          */
         ~Wektor3D()  { ++UsunietychWek; }
 
-        Wektor3D(const Wektor<3> &Wek) : Wektor<3>(Wek) {++StworzonychWek;} // Rozwiazuje problem dodawania zwiazany z dziedziczeniem
+        Wektor3D(const Wektor<3> &Wek) : Wektor<3>(Wek) {++StworzonychWek;} // Konstrutkor kopiujacy
+
         /**
          * Metoda pobierajacy trzy parametry i przypisywujacy je do wspolrzednych wektora.
          * 
@@ -67,7 +68,7 @@ class Wektor3D : public Wektor<3> {
          * @param[in] wartosc_z - parametr wspolrzednej z wektora
          */
         void UstawWar(double wartosc_x, double wartosc_y, double wartosc_z)
-            {(*this)[0] = wartosc_x; (*this)[1] = wartosc_y; (*this)[2] = wartosc_z;}
+            {(*this)[0] = wartosc_x; (*this)[1] = wartosc_y; (*this)[2] = wartosc_z; ++StworzonychWek;}
         
 
         /**
