@@ -238,8 +238,8 @@ bool Scena::UstawDrony() {
  * jako argumenty jej wywolania. Zapisuje ta sciezkie do pliku i wyswietla
  * ja na scenie.
  * 
- * @param[in][in] Dlugosc - dlugosc trasy przelotu drona
- * @param[in][in] Kat  - kat o ktory obroci sie dron
+ * @param[in] Dlugosc - dlugosc trasy przelotu drona
+ * @param[in] Kat  - kat o ktory obroci sie dron
  * 
  * @retval true - poprawnie udalo sie zrealizowac wyznaczenie trasy lotu drona
  * @retval false - operacja ta nie powiodla sie

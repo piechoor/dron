@@ -36,9 +36,9 @@ class Wektor {
      */
     Wektor() { for (unsigned int i = 0; i < Rozmiar; ++i) Wsp[i] = 0;}
 
-    // Wektor(const Wektor &Wek) {(*this) = Wek;}
+    Wektor(const Wektor<Rozmiar> &Wek) {(*this) = Wek;}
 
-    // ~Wektor() {}
+     //~Wektor() {}
 
     /**
      * @brief Zwraca wartość modułu między punktami wyrażonymi jako wektory
@@ -60,6 +60,8 @@ class Wektor {
      * @brief Przeciążenie operatora odejmowania dla wektora
      */
     Wektor<Rozmiar> operator - (const Wektor<Rozmiar> &Odjemnik) const;
+
+    Wektor<Rozmiar>& operator = (const Wektor<Rozmiar> &Wek) {for (unsigned int i = 0; i < Rozmiar; ++i) Wsp[i] = Wek[i]; return *this;}
 
 };
 

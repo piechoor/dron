@@ -34,13 +34,13 @@ class Wektor3D : public Wektor<3> {
          * Konstruktor korzystajacy z konstruktora klasy Wektor oraz inkrementujacy licznik
          * stworzonych wektorow 3D
          */
-        Wektor3D() : Wektor() {++StworzonychWek;} 
+        Wektor3D() : Wektor<3>() {++StworzonychWek;} 
 
         /**
-        //  * Konstruktor kapiujacy dla klasy Wektor3D, inkrementuje licznik
-        //  * stworzonych wektorow 3D
-        //  */
-        // Wektor3D(const Wektor3D &Wek) {(*this) = Wek; ++StworzonychWek;}
+         * Konstruktor kapiujacy dla klasy Wektor3D, inkrementuje licznik
+         * stworzonych wektorow 3D
+         */
+        //Wektor3D(const Wektor3D &Wek) : Wektor<3>(Wek) {(*this) = Wek; ++StworzonychWek;}
 
         /**
          * Kontruktor pobierajacy trzy parametry i przypisywujacy je do 
@@ -50,15 +50,15 @@ class Wektor3D : public Wektor<3> {
          * @param[in] Wsp_y - parametr wspolrzednej y wektora
          * @param[in] Wsp_z - parametr wspolrzednej z wektora
          */
-        Wektor3D(double Wsp_x, double Wsp_y, double Wsp_z)
+        Wektor3D(double Wsp_x, double Wsp_y, double Wsp_z) : Wektor<3>()
             {(*this)[0] = Wsp_x; (*this)[1] = Wsp_y; (*this)[2] = Wsp_z; ++StworzonychWek;}
-        
+
+        Wektor3D(const Wektor<3> &Wek) : Wektor<3>(Wek) {++StworzonychWek;} // Konstruktor kopiujacy
+
         /**
          * Destruktor wektora 3D, inkrementuje licznik usunietych wektorow 3D
          */
         ~Wektor3D()  { ++UsunietychWek; }
-
-        Wektor3D(const Wektor<3> &Wek) : Wektor<3>(Wek) {++StworzonychWek;} // Konstrutkor kopiujacy
 
         /**
          * Metoda pobierajacy trzy parametry i przypisywujacy je do wspolrzednych wektora.
@@ -68,7 +68,7 @@ class Wektor3D : public Wektor<3> {
          * @param[in] wartosc_z - parametr wspolrzednej z wektora
          */
         void UstawWar(double wartosc_x, double wartosc_y, double wartosc_z)
-            {(*this)[0] = wartosc_x; (*this)[1] = wartosc_y; (*this)[2] = wartosc_z; ++StworzonychWek;}
+            {(*this)[0] = wartosc_x; (*this)[1] = wartosc_y; (*this)[2] = wartosc_z;}
         
 
         /**
