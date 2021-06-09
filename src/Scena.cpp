@@ -9,8 +9,13 @@ using namespace std;
 Scena::Scena() {
     NrAktywnegoDrona = 0;
     LiczbaObiektow = 0;
-    for (unsigned int i = 0; i < LICZBA_DRONOW; ++i)
-        TabDronow[i].InicjujDrona(i);
+
+    Wektor3D PolozenieDrona1(POCZ_WSP_X_DRON1, POCZ_WSP_Y_DRON1, POCZ_WYSOKOSC_DRONA);
+    Wektor3D PolozenieDrona2(POCZ_WSP_X_DRON2, POCZ_WSP_Y_DRON2, POCZ_WYSOKOSC_DRONA);
+
+    Dodaj_Drona(PolozenieDrona1);
+    Dodaj_Drona(PolozenieDrona2);
+
     this->InicjujLacze();
 
     Wektor3D Pol(30,150,0), Sk(20,20,200);
@@ -94,6 +99,18 @@ bool Scena::DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, doub
     LiczbaObiektow++;
 
     return true;
+}
+
+void Scena::Dodaj_Drona(const Wektor3D &Polozenie) {
+    shared_ptr<Dron> NowyDron(new Dron);
+
+    NowyDron->ZmienPolozenie(Polozenie);
+    NowyDron->InicjujDrona(LiczbaObiektow);
+
+    TabDronow.push_back(NowyDron);
+    Przeszkody.push_back(NowyDron);
+
+    LiczbaObiektow++;
 }
 
 /**
@@ -180,7 +197,7 @@ bool Scena::DodajPrzeszkode_Plaskowyz(const Wektor3D &Skala, Wektor3D Polozenie,
  */
 bool Scena::UsunPrzeszkode() {
     unsigned int NumerElem = 1;
-    std::list<std::shared_ptr<Bryla>>::iterator iter = Przeszkody.begin();
+    std::list<std::shared_ptr<ObiektSceny>>::iterator iter = Przeszkody.begin();
     
     if (LiczbaObiektow == 0) {
         cout << "Brak elementow na scenie" << endl;
@@ -188,7 +205,7 @@ bool Scena::UsunPrzeszkode() {
     }
 
     cout << endl << "Wybierz element powierzchni do usuniecia:" << endl;
-    for (const shared_ptr<Bryla> &Wsk : Przeszkody) {
+    for (const shared_ptr<ObiektSceny> &Wsk : Przeszkody) {
         cout << NumerElem << ". ";
         Wsk->WyswietlWsp();
         cout << " " << Wsk->Nazwa() << endl;
@@ -218,25 +235,6 @@ bool Scena::UsunPrzeszkode() {
 }
 
 
-/**
- * Metoda zmieniajaca polozenie dronow na ich startowe pozycje
- * okreslone za pomoca stalych sympolicznych.
- * 
- * @retval true - udalo sie zmienic polozenie dronow
- * @retval false - operacja nie powiodla sie
- */
-bool Scena::UstawDrony() {
-    Wektor3D PolozenieDrona1(POCZ_WSP_X_DRON1, POCZ_WSP_Y_DRON1, POCZ_WYSOKOSC_DRONA);
-    Wektor3D PolozenieDrona2(POCZ_WSP_X_DRON2, POCZ_WSP_Y_DRON2, POCZ_WYSOKOSC_DRONA);
-
-    TabDronow[0].ZmienPolozenie(PolozenieDrona1);
-    if(!TabDronow[0].OblicziZapisz_WspGlb_Drona()) return false;
-
-    TabDronow[1].ZmienPolozenie(PolozenieDrona2);
-    if(!TabDronow[1].OblicziZapisz_WspGlb_Drona()) return false;
-
-    return true;
-}
 
 /**
  * Metoda tworzaca sciezke przelotu drona zgodnie z parametrami podanymi
@@ -260,7 +258,7 @@ bool Scena::RysujSciezkeLotu(double Dlugosc, double Kat) {
     double Kat_obr = Kat * M_PI / 180; // Zamiana kata w stopniach na radiany
 
     Wektor3D WspTrasy;
-    WspTrasy = TabDronow[NrAktywnegoDrona].ZwrocWsp();
+    WspTrasy = PobierzAktywnegoDrona().ZwrocWsp();
     Wektor3D WekKierunkowy(cos(Kat_obr)*Dlugosc,sin(Kat_obr)*Dlugosc,0); // Utowrzenie wektora kierunkowego
 
     trasa_przelotu << WspTrasy << endl;

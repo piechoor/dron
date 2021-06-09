@@ -9,6 +9,7 @@
  */
 
 #include "BrylaGeometryczna.hh"
+#include "ObiektSceny.hh"
 #include "Wektor3D.hh"
 #include "Macierz3x3.hh"
 #include <string>
@@ -21,7 +22,7 @@
  * Klasa definiuje plaskowyz - jedna z trzech podstawowych
  * przeszkod prezentowanych na scenie.
  */
-class Plaskowyz : public Bryla {
+class Plaskowyz : public ObiektSceny {
     private:
         /**
          * Polozenie plaskowyza w przestrzeni

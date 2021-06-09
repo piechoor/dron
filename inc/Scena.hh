@@ -8,6 +8,8 @@
 #include "Prostopadloscian.hh"
 #include "Wektor3D.hh"
 #include "Macierz3x3.hh"
+
+#include "ObiektSceny.hh"
 #include "Dron.hh"
 #include "lacze_do_gnuplota.hh"
 #include "Przeszkoda_gora.hh"
@@ -43,7 +45,8 @@ class Scena {
         /**
          * Tablica dronow znajdujacych sie na scenie
          */
-        Dron TabDronow[LICZBA_DRONOW];
+        //Dron TabDronow[LICZBA_DRONOW];
+        std::list<std::shared_ptr<Dron>> TabDronow;
         /**
          * Lacze do GNU-plota
          */
@@ -55,7 +58,7 @@ class Scena {
         /**
          * Lista przeszkod znajdujacych sie na scenie
          */
-        std::list<std::shared_ptr<Bryla>> Przeszkody;
+        std::list<std::shared_ptr<ObiektSceny>> Przeszkody;
         
         /**
          * Liczba przeszkod na scenie
@@ -73,7 +76,8 @@ class Scena {
          * 
          * @return Zwraca referencje do drona zgodnie z numerem aktywnego drona.
          */
-        Dron& PobierzAktywnegoDrona() {return TabDronow[NrAktywnegoDrona];}
+        Dron& PobierzAktywnegoDrona() {if (NrAktywnegoDrona == 0) return *TabDronow.front();
+                                       else return *TabDronow.back(); }
 
         /**
          * Metoda zmieniajaca nnumer aktywnego drona.
@@ -81,6 +85,8 @@ class Scena {
          * @param[in] wybor - Numer drona, ktory ma byc aktywny.
          */
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
+
+        void Dodaj_Drona(const  Wektor3D &Polozenie);
 
         /**
          * @brief Metoda dodaje na scene gore w zadanym formacie
@@ -120,11 +126,6 @@ class Scena {
          * ekenentem sceny.
          */
         void RysujScene() {Lacze.Rysuj();}
-
-        /**
-         * @brief Metoda ustawiajaca drony w ich poczatkowych pozycjach na scenie
-         */
-        bool UstawDrony();
 
         /**
          * @brief Metoda rysuje na scenie sciezke lotu drona 

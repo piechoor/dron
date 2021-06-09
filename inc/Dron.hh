@@ -2,6 +2,7 @@
 #define DRON_HH
 
 #include "Wektor3D.hh"
+#include "ObiektSceny.hh"
 #include "BrylaGeometryczna.hh"
 #include "Prostopadloscian.hh"
 #include "Graniastoslup6.hh"
@@ -43,7 +44,7 @@
  * pozwala na zmiane wspolrzednych tych figur w danych ukladach wspolrzenych
  * tak aby mozliwe bylo rysowanie animacji lotu drona.
  */
-class Dron : public Bryla {
+class Dron : public ObiektSceny {
     private:
         /**
          * Wektor reprezentujacy polozenie graniastoslupa w przestrzeni

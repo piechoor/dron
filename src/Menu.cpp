@@ -16,7 +16,6 @@ bool PrzetwarzajMenu(Scena &Sc) {
     char Wybor;
     double Kat_obr, Dlugosc_lotu;
 
-    if(!Sc.UstawDrony()) return false;
     if(!Sc.ZerujSciezkeLotu()) return false;
     Sc.RysujScene();
 

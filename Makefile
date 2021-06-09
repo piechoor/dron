@@ -14,8 +14,8 @@ dat:
 	mkdir dat
 
 
-./${APP}: obj/main.o obj/lacze_do_gnuplota.o obj/Macierz3x3.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Dron.o obj/BrylaGeometryczna.o obj/Graniastoslup6.o obj/Scena.o obj/Menu.o obj/Przeszkoda_gora.o obj/Przeszkoda_gran.o obj/Przeszkoda_plaskowyz.o
-	g++ -o ./${APP} obj/main.o obj/lacze_do_gnuplota.o obj/Macierz3x3.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Dron.o obj/BrylaGeometryczna.o obj/Graniastoslup6.o obj/Scena.o obj/Menu.o obj/Przeszkoda_gora.o obj/Przeszkoda_gran.o obj/Przeszkoda_plaskowyz.o
+./${APP}: obj/main.o obj/lacze_do_gnuplota.o obj/Macierz3x3.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Dron.o obj/BrylaGeometryczna.o obj/Graniastoslup6.o obj/Scena.o obj/Menu.o obj/Przeszkoda_gora.o obj/Przeszkoda_gran.o obj/Przeszkoda_plaskowyz.o obj/ObiektSceny.o
+	g++ -o ./${APP} obj/main.o obj/lacze_do_gnuplota.o obj/Macierz3x3.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Dron.o obj/BrylaGeometryczna.o obj/Graniastoslup6.o obj/Scena.o obj/Menu.o obj/Przeszkoda_gora.o obj/Przeszkoda_gran.o obj/Przeszkoda_plaskowyz.o obj/ObiektSceny.o
 
 
 ext: ./${APP}_rozszerzony
@@ -60,6 +60,9 @@ obj/Przeszkoda_gran.o: src/Przeszkoda_gran.cpp inc/Przeszkoda_gran.hh
 
 obj/Przeszkoda_plaskowyz.o: src/Przeszkoda_plaskowyz.cpp inc/Przeszkoda_plaskowyz.hh
 	g++ -Iinc -W -Wall -pedantic -c -o obj/Przeszkoda_plaskowyz.o src/Przeszkoda_plaskowyz.cpp
+
+obj/ObiektSceny.o: src/ObiektSceny.cpp inc/ObiektSceny.hh
+	g++ -Iinc -W -Wall -pedantic -c -o obj/ObiektSceny.o src/ObiektSceny.cpp
 
 	
 clean:

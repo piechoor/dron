@@ -9,6 +9,7 @@
  */
 
 #include "BrylaGeometryczna.hh"
+#include "ObiektSceny.hh"
 #include "Wektor3D.hh"
 #include "Macierz3x3.hh"
 #include <string>
@@ -21,7 +22,7 @@
  * Klasa definiuje gran - jedna z trzech podstawowych
  * przeszkod prezentowanych na scenie.
  */
-class Gran : public Bryla {
+class Gran : public ObiektSceny {
     private:
         /**
          * Polozenie grani w przestrzeni

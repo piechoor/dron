@@ -24,6 +24,7 @@ void Dron::InicjujDrona(unsigned int NrDrona) {
      }
 
      this->UstawElementyDrona();
+     this->OblicziZapisz_WspGlb_Drona();
 }
 
 /**

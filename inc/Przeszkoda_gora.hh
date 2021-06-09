@@ -9,6 +9,7 @@
  */
 
 #include "BrylaGeometryczna.hh"
+#include "ObiektSceny.hh"
 #include "Wektor3D.hh"
 #include "Macierz3x3.hh"
 #include <string>
@@ -21,7 +22,7 @@
  * Klasa definiuje gore - jedna z trzech podstawowych
  * przeszkod prezentowanych na scenie.
  */
-class Gora : public Bryla {
+class Gora : public ObiektSceny {
     private:
         /**
          * Polozenie gory w przestrzeni
