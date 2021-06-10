@@ -79,6 +79,9 @@ class Gran : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Gora z grania";}
         
+        /**
+         * @brief Sprawdza kolizje grani z dronem podanym jako parametr wywolania.
+         */
         virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
         
         /**

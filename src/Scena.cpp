@@ -101,6 +101,14 @@ bool Scena::DodajPrzeszkode_Gora(const Wektor3D &Skala, Wektor3D Polozenie, doub
     return true;
 }
 
+/**
+ * Metoda dodajaca na scene drona, zeskalowanego zgodnie ze stalymi
+ * symbolicznymi umieszczonymi w naglowku "Dron.hh"
+ * Parametrem wywolania metody jest Wektor3D, ktory
+ * pozwala na polozenie drona w konktretnym miejscu na scenie
+ * 
+ * @param[in] Polozenie - pozadane polozenie przeszkody na scenie
+ */
 void Scena::Dodaj_Drona(const Wektor3D &Polozenie) {
     shared_ptr<Dron> NowyDron(new Dron);
 

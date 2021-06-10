@@ -79,6 +79,9 @@ class Gora : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Gora z ostrym szczytem";}
 
+        /**
+         * @brief Sprawdza kolizje gory z dronem podanym jako parametr wywolania.
+         */
         virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
 
         /**

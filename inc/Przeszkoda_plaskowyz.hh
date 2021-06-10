@@ -79,6 +79,9 @@ class Plaskowyz : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Plaskowyz";}
 
+        /**
+         * @brief Sprawdza kolizje plaskowyza z dronem podanym jako parametr wywolania.
+         */
         virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
 
         /**

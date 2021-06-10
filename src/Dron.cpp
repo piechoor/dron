@@ -27,6 +27,15 @@ void Dron::InicjujDrona(unsigned int NrDrona) {
      this->OblicziZapisz_WspGlb_Drona();
 }
 
+/**
+ * Metoda sprawdzajaca czy nie zachodzi kolizja miedzy
+ * obiektem klasy a dronem podanym jako parametr wywolania metody.
+ * 
+ * @param[in] DronKol - dron, na ktorym sprawdzamy kolizje z oniektem klasy
+ * 
+ * @retval true - zachodzi kolizja miedzy dronami
+ * @retval false - nie zachodzi kolizja
+ */
 bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
      double R = this->ZwrocPromien();
      double r = DronKol->ZwrocPromien();

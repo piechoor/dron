@@ -15,6 +15,15 @@ Gora::Gora(unsigned int NrGory) {
     UstawNazwe_Roboczy(StrWyj.str());
 }
 
+/**
+ * Metoda sprawdza, czy zachodzi kolizja miedzy dronem podanym jako
+ * parametr wywolania a obiektem klasy.
+ * 
+ * @param[in] DronKol - wskaznik wspoldzielony na drona
+ * 
+ * @retval true - wystapila kolizja drona z gora
+ * @retval false - nie wystepuje kolizja
+ */
 bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
     //Wyznaczenie promienia i polozenia drona
     double R = DronKol->ZwrocPromien();
@@ -37,6 +46,15 @@ bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
         if (pow((WskNaWierz[i][0]-PolDron[0]),2) + pow((WskNaWierz[i][1]-PolDron[1]),2) <= pow(R,2))
             return true;
     }
+
+    //Sprawdzenie czy dron znajduje sie w przeszkodzie
+    //Jest tak, gdy wszystkie wierzcholki przeszkody sa poza obrysem drona (sprawdzone wyzej)
+    //i jezeli odleglosc srodka drona od srodka przeszkody jest mniejsza od polowy dlugosci krotszego boku
+    double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1]);
+    double DlugoscBoku2 = WskNaWierz[0].Modul(WskNaWierz[3]);
+    double OdlSrodkow = PolDron.Modul(Polozenie);
+    if (OdlSrodkow > DlugoscBoku1/2 || OdlSrodkow > DlugoscBoku2/2 )
+        return true;
 
     return false;
 }

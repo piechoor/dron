@@ -43,9 +43,8 @@
 class Scena {
     private:
         /**
-         * Tablica dronow znajdujacych sie na scenie
+         * Lista wskaznikow na drony znajdujacych sie na scenie
          */
-        //Dron TabDronow[LICZBA_DRONOW];
         std::list<std::shared_ptr<Dron>> TabDronow;
         /**
          * Lacze do GNU-plota

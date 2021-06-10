@@ -139,6 +139,9 @@ class Dron : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Dron";}
 
+        /**
+         * @brief Sprawdza czy nie wystepuje kolizja miedzy dronami
+         */
         virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
 
     private:
