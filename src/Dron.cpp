@@ -31,7 +31,8 @@ void Dron::InicjujDrona(unsigned int NrDrona) {
  * Metoda sprawdzajaca czy nie zachodzi kolizja miedzy
  * obiektem klasy a dronem podanym jako parametr wywolania metody.
  * 
- * @param[in] DronKol - dron, na ktorym sprawdzamy kolizje z oniektem klasy
+ * @param[in] Polozenie - polozenie srodka okregu
+ * @param[in] Promien - promien okregu
  * 
  * @retval true - zachodzi kolizja miedzy dronami
  * @retval false - nie zachodzi kolizja

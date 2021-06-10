@@ -26,6 +26,7 @@ class ObiektSceny : public Bryla {
          * koliduje z bryla, ktora jest obiektem.
          */
         virtual bool SprKolizje(const Wektor3D &Polozenie, double Promien);
+
         
 };
 
