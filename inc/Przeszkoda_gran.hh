@@ -82,7 +82,7 @@ class Gran : public ObiektSceny {
         /**
          * @brief Sprawdza kolizje grani z dronem podanym jako parametr wywolania.
          */
-        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+        virtual bool SprKolizje(const Wektor3D &Polozenie, double Promien) override;
         
         /**
          * @brief Usuwa gran ze sceny i jako obiekt. 

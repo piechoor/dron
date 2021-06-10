@@ -2,8 +2,8 @@
 #define OBIEKTSCENY_HH
 
 #include <memory>
+
 #include "BrylaGeometryczna.hh"
-#include "Dron.hh"
 
 /**
  * @file ObiektSceny.hh
@@ -25,7 +25,7 @@ class ObiektSceny : public Bryla {
          * Metoda sprawdzajaca czy dron podany jako parametr jej wywolania
          * koliduje z bryla, ktora jest obiektem.
          */
-        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol);
+        virtual bool SprKolizje(const Wektor3D &Polozenie, double Promien);
         
 };
 

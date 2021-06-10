@@ -16,18 +16,16 @@ Gora::Gora(unsigned int NrGory) {
 }
 
 /**
- * Metoda sprawdza, czy zachodzi kolizja miedzy dronem podanym jako
- * parametr wywolania a obiektem klasy.
+ * Metoda sprawdza, czy zachodzi kolizja miedzy dronem reprezentowanym jako
+ * okrag a obiektem klasy.
  * 
- * @param[in] DronKol - wskaznik wspoldzielony na drona
+ * @param[in] Polozenie - polozenie srodka okregu
+ * @param[in] Promien - promien okregu
  * 
  * @retval true - wystapila kolizja drona z gora
  * @retval false - nie wystepuje kolizja
  */
-bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
-    //Wyznaczenie promienia i polozenia drona
-    double R = DronKol->ZwrocPromien();
-    Wektor3D PolDron = DronKol->ZwrocWsp();
+bool Gora::SprKolizje(const Wektor3D &Polozenie, double Promien) {
 
     //Wyznaczenie wektora w ukladzie lokalnym wskazujacego na jeden z wierzcholkow
     Wektor3D WekPomoc(0.5*this->Skala[0], 0.5*this->Skala[1],0);
@@ -43,7 +41,7 @@ bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
     //Sprawdzenie czy w okregu wyznaczonym przez drona znajduje sie jakis wierzcholek
     //Zgodnie z nierownoscia (x-x0)^2+(y-y0)^2<=R^2
     for (unsigned int i = 0; i < 4; ++i) {
-        if (pow((WskNaWierz[i][0]-PolDron[0]),2) + pow((WskNaWierz[i][1]-PolDron[1]),2) <= pow(R,2))
+        if (pow((WskNaWierz[i][0]-Polozenie[0]),2) + pow((WskNaWierz[i][1]-Polozenie[1]),2) <= pow(Promien,2))
             return true;
     }
 
@@ -52,8 +50,8 @@ bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
     //i jezeli odleglosc srodka drona od srodka przeszkody jest mniejsza od polowy dlugosci krotszego boku
     double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1]);
     double DlugoscBoku2 = WskNaWierz[0].Modul(WskNaWierz[3]);
-    double OdlSrodkow = PolDron.Modul(Polozenie);
-    if (OdlSrodkow > DlugoscBoku1/2 || OdlSrodkow > DlugoscBoku2/2 )
+    double OdlSrodkow = Polozenie.Modul(Polozenie);
+    if (OdlSrodkow+Promien > DlugoscBoku1/2 || OdlSrodkow+Promien > DlugoscBoku2/2 )
         return true;
 
     return false;

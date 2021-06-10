@@ -142,7 +142,7 @@ class Dron : public ObiektSceny {
         /**
          * @brief Sprawdza czy nie wystepuje kolizja miedzy dronami
          */
-        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+        virtual bool SprKolizje(const Wektor3D &Polozenie, double Promien) override;
 
     private:
         /**

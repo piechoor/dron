@@ -82,7 +82,7 @@ class Plaskowyz : public ObiektSceny {
         /**
          * @brief Sprawdza kolizje plaskowyza z dronem podanym jako parametr wywolania.
          */
-        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+        virtual bool SprKolizje(const Wektor3D &Polozenie, double Promien) override;
 
         /**
          * @brief Usuwa plaskowyz ze sceny i jako obiekt. 
