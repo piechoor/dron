@@ -79,6 +79,8 @@ class Gran : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Gora z grania";}
         
+        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+        
         /**
          * @brief Usuwa gran ze sceny i jako obiekt. 
          */

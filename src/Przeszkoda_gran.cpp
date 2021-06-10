@@ -15,6 +15,40 @@ Gran::Gran(unsigned int NrGrani) {
     UstawNazwe_Roboczy(StrWyj.str());
 }
 
+bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
+    //Wyznaczenie promienia i polozenia drona
+    double R = DronKol->ZwrocPromien();
+    Wektor3D PolDron = DronKol->ZwrocWsp();
+
+    //Wyznaczenie wektora w ukladzie lokalnym wskazujacego na jeden z wierzcholkow
+    Wektor3D WekPomoc(0.5*this->Skala[0], 0.5*this->Skala[1],0);
+    Macierz3x3 MacObr; UstawRotacjeZ(MacObr, this->Orientacja);
+
+    //Wyznaczenie wektorow wskazujacych na 4 wierzcholki w ukladzie globalnym
+    Wektor3D WskNaWierz[4];
+    WskNaWierz[0] = MacObr * WekPomoc + this->Polozenie; WekPomoc[0] *= (-1); //(X,Y)
+    WskNaWierz[1] = MacObr * WekPomoc + this->Polozenie; WekPomoc[1] *= (-1); //(-X,Y)
+    WskNaWierz[2] = MacObr * WekPomoc + this->Polozenie; WekPomoc[0] *= (-1); //(-X,-Y)
+    WskNaWierz[3] = MacObr * WekPomoc + this->Polozenie;                     //(X,-Y)
+
+    //Sprawdzenie czy w okregu wyznaczonym przez drona znajduje sie jakis wierzcholek
+    //Zgodnie z nierownoscia (x-x0)^2+(y-y0)^2<=R^2
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (pow((WskNaWierz[i][0]-PolDron[0]),2) + pow((WskNaWierz[i][1]-PolDron[1]),2) <= pow(R,2))
+            return true;
+    }
+    //Sprawdzenie czy dron znajduje sie w przeszkodzie
+    //Jest tak, gdy wszystkie wierzcholki przeszkody sa poza obrysem drona (sprawdzone wyzej)
+    //i jezeli odleglosc srodka drona od srodka przeszkody jest mniejsza od polowy dlugosci krotszego boku
+    double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1];
+    double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[3];
+    double OdlSrodkow = PolDron.Modul(Polozenie);
+    if (OdlSrodkow > DlugoscBoku1/2 || OdlSrodkow > DlugoscBoku2/2 )
+        return true;
+
+    return false;
+}
+
 /**
  * Metoda przeksztalca wzorcowy szescian na gore
  * stanowiaca jedna z przeszkod. Gran ta jest rowniez skalowana,

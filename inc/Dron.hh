@@ -3,7 +3,6 @@
 
 #include "Wektor3D.hh"
 #include "ObiektSceny.hh"
-#include "BrylaGeometryczna.hh"
 #include "Prostopadloscian.hh"
 #include "Graniastoslup6.hh"
 #include "lacze_do_gnuplota.hh"
@@ -127,6 +126,20 @@ class Dron : public ObiektSceny {
          * @param[in] Translacja - pozadanie polozenie drona
          */
         void ZmienPolozenie(Wektor3D Translacja) {Polozenie = Translacja;}
+
+        /**
+         * @brief Oblicza i zwraca promien drona
+         */
+        double ZwrocPromien() {return sqrt(pow(SKALA_WIRNIKA_DRONA_X,2)+pow(SKALA_KORPUSU_DRONA_Y,2))+PROMIEN_ROTORA;}
+
+        /**
+         * Zwraca nazwe obiektu.
+         * 
+         * @return const char* - wskaznik na lancuch znakow bedacych nazwa obiektu
+         */
+        virtual const char* Nazwa() const override {return "Dron";}
+
+        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
 
     private:
         /**

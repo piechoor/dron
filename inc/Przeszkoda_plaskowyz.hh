@@ -79,6 +79,8 @@ class Plaskowyz : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Plaskowyz";}
 
+        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+
         /**
          * @brief Usuwa plaskowyz ze sceny i jako obiekt. 
          */

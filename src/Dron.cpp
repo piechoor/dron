@@ -27,6 +27,19 @@ void Dron::InicjujDrona(unsigned int NrDrona) {
      this->OblicziZapisz_WspGlb_Drona();
 }
 
+bool Dron::SprKolizje(std::shared_ptr<Dron> DronKol) {
+     double R = this->ZwrocPromien();
+     double r = DronKol->ZwrocPromien();
+
+     Wektor3D Pol1 = this->ZwrocWsp();
+     Wektor3D Pol2 = DronKol->ZwrocWsp();
+
+     if (Pol1.Modul(Pol2) < R+r)
+          return true;
+     else
+          return false;
+}
+
 /**
  * Oblicza i zapisuje wspolrzeedne globalne wszytskich elementow drona.
  * 

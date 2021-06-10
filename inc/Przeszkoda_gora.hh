@@ -79,6 +79,8 @@ class Gora : public ObiektSceny {
          */
         virtual const char* Nazwa() const override {return "Gora z ostrym szczytem";}
 
+        virtual bool SprKolizje(std::shared_ptr<Dron> DronKol) override;
+
         /**
          * @brief Usuwa gore ze sceny i jako obiekt. 
          */
