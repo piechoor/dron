@@ -24,7 +24,8 @@
 #define POCZ_WSP_X_DRON2 60
 #define POCZ_WSP_Y_DRON2 60
 
-#define BEZPIECZNA_WYSOKOSC 80
+#define BEZPIECZNA_WYSOKOSC 100
+#define BEZPIECZNA_ODLEGLOSC 30
 
 /**
  *  @file
@@ -78,6 +79,12 @@ class Scena {
         Dron& PobierzAktywnegoDrona() {if (NrAktywnegoDrona == 0) return *TabDronow.front();
                                        else return *TabDronow.back(); }
 
+        std::shared_ptr<Dron> PobierzWskAktywnegoDrona() {
+            std::list<std::shared_ptr<Dron>>::iterator iter = TabDronow.begin();
+            advance(iter, NrAktywnegoDrona);
+            return *iter;
+         }
+
         /**
          * Metoda zmieniajaca nnumer aktywnego drona.
          * 
@@ -130,12 +137,16 @@ class Scena {
          * @brief Metoda rysuje na scenie sciezke lotu drona 
          * zgodnie z zadanymi parametrami
          */
-        bool RysujSciezkeLotu(double Dlugosc, double Kat);
+        bool RysujSciezkeLotu(Wektor3D WspTrasy, double Dlugosc, double Kat);
 
         /**
          * @brief Metoda usuwajaca sciezke przelotu drona ze sceny
          */
         bool ZerujSciezkeLotu();
+        
+        bool SprMozliwosciLadowania(const Wektor3D &SrodekDrona, double PromienDrona, const std::shared_ptr<Dron> &Dron) const;
+
+        bool PrzelotDrona(double Kierunek, double Dlugosc);
 
     private:
         /**

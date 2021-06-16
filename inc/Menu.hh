@@ -5,6 +5,7 @@
 
 #include "Scena.hh"
 #include "Wektor3D.hh"
+#include "ObiektSceny.hh"
 
 #define BEZPIECZNA_WYSOKOSC 80  // Wysokosc na jaka wznosi sie dron
                                 // podczas lotu
@@ -34,11 +35,12 @@ void PrzetwWyborDrona(Scena &Sc);
 /**
  * @brief Funkcja realizujaca przelot aktywnego drona o zadane parametry
  */
-bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc);
+bool ZadajPrzelot(Scena &Sc);
 
 /**
  * @brief Pozwala na dodanie wybranej przeszkody na scene
  */
 bool DodajElemPowierz(Scena &Sc);
+
 
 #endif

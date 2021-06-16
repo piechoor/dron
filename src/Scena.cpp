@@ -255,7 +255,7 @@ bool Scena::UsunPrzeszkode() {
  * @retval true - poprawnie udalo sie zrealizowac wyznaczenie trasy lotu drona
  * @retval false - operacja ta nie powiodla sie
  */
-bool Scena::RysujSciezkeLotu(double Dlugosc, double Kat) {
+bool Scena::RysujSciezkeLotu(Wektor3D WspTrasy, double Dlugosc, double Kat) {
     ofstream trasa_przelotu("dat/trasa_przelotu.dat");
         if (!trasa_przelotu.is_open()) {
         cerr << endl << " Blad otwarcia do zapisu pliku: " << "dat/trasa_przelotu.dat"
@@ -265,8 +265,6 @@ bool Scena::RysujSciezkeLotu(double Dlugosc, double Kat) {
 
     double Kat_obr = Kat * M_PI / 180; // Zamiana kata w stopniach na radiany
 
-    Wektor3D WspTrasy;
-    WspTrasy = PobierzAktywnegoDrona().ZwrocWsp();
     Wektor3D WekKierunkowy(cos(Kat_obr)*Dlugosc,sin(Kat_obr)*Dlugosc,0); // Utowrzenie wektora kierunkowego
 
     trasa_przelotu << WspTrasy << endl;
@@ -305,5 +303,48 @@ bool Scena::ZerujSciezkeLotu() {
 
     this->RysujScene();
 
+    return true;
+}
+
+bool Scena::SprMozliwosciLadowania(const Wektor3D &SrodekDrona, double PromienDrona, const shared_ptr<Dron> &Dron) const{
+    for (const shared_ptr<ObiektSceny> &Ob : Przeszkody) {
+        if (Ob == Dron) continue;
+        if (Ob->SprKolizje(SrodekDrona, PromienDrona)) {
+            cout << "Kolizja z obiektem: \"" << Ob->Nazwa() << "\"." << endl;
+            return true;
+            }
+    }
+    
+    return false;
+} 
+
+bool Scena::PrzelotDrona(double Kierunek, double Dlugosc) {
+
+    Wektor3D PolPoczDrona = PobierzAktywnegoDrona().ZwrocWsp();
+    double OrientacjaDrona = PobierzAktywnegoDrona().ZwrocOrientacje();
+
+    if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona))
+        return false;
+ 
+    cout << endl << endl << "Realizacja przelotu ..." << endl << endl;
+
+    PobierzAktywnegoDrona().WykonajPionowyLot(BEZPIECZNA_WYSOKOSC, Lacze);
+    PobierzAktywnegoDrona().ObrocDrona(Kierunek, Lacze);
+    PobierzAktywnegoDrona().WykonajPoziomyLot(Dlugosc, Lacze);
+
+    while(SprMozliwosciLadowania(PobierzAktywnegoDrona().ZwrocWsp(),
+                              PobierzAktywnegoDrona().ZwrocPromien(),
+                              PobierzWskAktywnegoDrona())) {
+        Dlugosc += BEZPIECZNA_ODLEGLOSC;
+        if(!ZerujSciezkeLotu()) return false;
+        if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona)) return false;
+        PobierzAktywnegoDrona().WykonajPoziomyLot(BEZPIECZNA_ODLEGLOSC, Lacze);
+    }
+
+    PobierzAktywnegoDrona().WykonajPionowyLot(-BEZPIECZNA_WYSOKOSC, Lacze);
+    
+
+    if(!ZerujSciezkeLotu()) return false;
+    
     return true;
 }

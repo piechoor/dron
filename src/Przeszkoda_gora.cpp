@@ -48,11 +48,11 @@ bool Gora::SprKolizje(const Wektor3D &Polozenie, double Promien) {
     //Sprawdzenie czy dron znajduje sie w przeszkodzie
     //Jest tak, gdy wszystkie wierzcholki przeszkody sa poza obrysem drona (sprawdzone wyzej)
     //i jezeli odleglosc srodka drona od srodka przeszkody jest mniejsza od polowy dlugosci krotszego boku
-    double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1]);
-    double DlugoscBoku2 = WskNaWierz[0].Modul(WskNaWierz[3]);
-    double OdlSrodkow = Polozenie.Modul(Polozenie);
-    if (OdlSrodkow+Promien > DlugoscBoku1/2 || OdlSrodkow+Promien > DlugoscBoku2/2 )
-        return true;
+    // double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1]);
+    // double DlugoscBoku2 = WskNaWierz[0].Modul(WskNaWierz[3]);
+    // double OdlSrodkow = Polozenie.Modul(Polozenie);
+    // if (OdlSrodkow+Promien > DlugoscBoku1/2 || OdlSrodkow+Promien > DlugoscBoku2/2 )
+    //     return true;
 
     return false;
 }

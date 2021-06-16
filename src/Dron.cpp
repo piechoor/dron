@@ -38,11 +38,15 @@ void Dron::InicjujDrona(unsigned int NrDrona) {
  * @retval false - nie zachodzi kolizja
  */
 bool Dron::SprKolizje(const Wektor3D &Polozenie, double Promien) {
+
      double R = this->ZwrocPromien();
 
-     Wektor3D Pol = this->ZwrocWsp();
+     Wektor3D PolDron1 = Polozenie;
+     Wektor3D PolDron2 = this->ZwrocWsp();
+     PolDron1[2] = 0;
+     PolDron2[2] = 0;
 
-     if (Pol.Modul(Polozenie) < R+Promien)
+     if (PolDron1.Modul(PolDron2) < R+Promien)
           return true;
      else
           return false;

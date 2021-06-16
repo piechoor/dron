@@ -14,7 +14,6 @@ using namespace std;
  */
 bool PrzetwarzajMenu(Scena &Sc) {
     char Wybor;
-    double Kat_obr, Dlugosc_lotu;
 
     if(!Sc.ZerujSciezkeLotu()) return false;
     Sc.RysujScene();
@@ -27,9 +26,7 @@ bool PrzetwarzajMenu(Scena &Sc) {
         case 'a':
             PrzetwWyborDrona(Sc); break;
         case 'p':
-            cout << "Podaj kierunek lotu (kat w stopniach)> "; cin >> Kat_obr;
-            cout << "                   Podaj dlugosc lotu> "; cin >> Dlugosc_lotu;
-            if(!ZadajPrzelot(Sc, Kat_obr, Dlugosc_lotu))
+            if(!ZadajPrzelot(Sc))
                 cout << "Nie udalo sie przeprowadzic przelotu drona" << endl << endl;
             break;
         case 'd':
@@ -126,21 +123,13 @@ void PrzetwWyborDrona(Scena &Sc) {
  * @retval true - gdy wszystkie operacje powiodly sie
  * @retval false - ktoras z operacji nie zostala wykonana prawidlowo
  */
-bool ZadajPrzelot(Scena &Sc, double Kierunek, double Dlugosc) {
+bool ZadajPrzelot(Scena &Sc) {
 
-    PzG::LaczeDoGNUPlota Lacze = Sc.ZwrocLacze();
+    double Kat_obr, Dlugosc_lotu;
+    cout << "Podaj kierunek lotu (kat w stopniach)> "; cin >> Kat_obr;
+    cout << "                   Podaj dlugosc lotu> "; cin >> Dlugosc_lotu;
 
-    if(!Sc.RysujSciezkeLotu(Dlugosc, Kierunek + Sc.PobierzAktywnegoDrona().ZwrocOrientacje()))
-        return false;
- 
-    cout << endl << endl << "Realizacja przelotu ..." << endl << endl;
-
-    Sc.PobierzAktywnegoDrona().WykonajPionowyLot(BEZPIECZNA_WYSOKOSC, Lacze);
-    Sc.PobierzAktywnegoDrona().ObrocDrona(Kierunek, Lacze);
-    Sc.PobierzAktywnegoDrona().WykonajPoziomyLot(Dlugosc, Lacze);
-    Sc.PobierzAktywnegoDrona().WykonajPionowyLot(-BEZPIECZNA_WYSOKOSC, Lacze);
-
-    if(!Sc.ZerujSciezkeLotu()) return false;
+    if(!Sc.PrzelotDrona(Kat_obr, Dlugosc_lotu)) return false;
     
     return true;
 }

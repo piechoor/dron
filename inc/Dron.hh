@@ -130,7 +130,7 @@ class Dron : public ObiektSceny {
         /**
          * @brief Oblicza i zwraca promien drona
          */
-        double ZwrocPromien() {return sqrt(pow(SKALA_WIRNIKA_DRONA_X,2)+pow(SKALA_KORPUSU_DRONA_Y,2))+PROMIEN_ROTORA;}
+        double ZwrocPromien() {return 2*PROMIEN_ROTORA + 0.5*SKALA_WIRNIKA_DRONA_X;}
 
         /**
          * Zwraca nazwe obiektu.
