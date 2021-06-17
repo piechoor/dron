@@ -79,6 +79,9 @@ class Scena {
         Dron& PobierzAktywnegoDrona() {if (NrAktywnegoDrona == 0) return *TabDronow.front();
                                        else return *TabDronow.back(); }
 
+        /**
+         * Zwraca wskaznik wspoldzielony na aktywnego drona.
+         */
         std::shared_ptr<Dron> PobierzWskAktywnegoDrona() {
             std::list<std::shared_ptr<Dron>>::iterator iter = TabDronow.begin();
             advance(iter, NrAktywnegoDrona);
@@ -92,6 +95,9 @@ class Scena {
          */
         void WybierzDrona(unsigned int wybor) {NrAktywnegoDrona = (wybor-1);}
 
+        /**
+         * Pozwala na dodanie drona na scene.
+         */
         void Dodaj_Drona(const  Wektor3D &Polozenie);
 
         /**
@@ -144,6 +150,9 @@ class Scena {
          */
         bool ZerujSciezkeLotu();
         
+        /**
+         * @brief Sprawdza mozliwosc ladowania drona na scenie.
+         */
         bool SprMozliwosciLadowania(const Wektor3D &SrodekDrona, double PromienDrona, const std::shared_ptr<Dron> &Dron) const;
 
         bool PrzelotDrona(double Kierunek, double Dlugosc);

@@ -7,9 +7,6 @@
 #include "Wektor3D.hh"
 #include "ObiektSceny.hh"
 
-#define BEZPIECZNA_WYSOKOSC 80  // Wysokosc na jaka wznosi sie dron
-                                // podczas lotu
-
 /**
  * @file
  * 

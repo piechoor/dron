@@ -111,14 +111,7 @@ void PrzetwWyborDrona(Scena &Sc) {
  * Funkcja przeprowadzajaca operacje przelotu aktywnego drona
  * na scenie przekazanej jako parametr wywolania owej funkcji.
  * Przelot drona realizowany jest w kierunku podanym jako kat 
- * oraz o odleglosc podana jako parametr wywolania.
- * Najpierw wyswietla sciezke lotu, wznosi drona na bezpieczna wysokosc,
- * wykonuje poziomy przelot, opuszcza drona na powierzchnie i usuwa trase
- * przelotu.
- * 
- * @param[in] Sc - scena, na ktorej wykonujemy przelot dronow
- * @param[in] Kierunek - kierunek wyrazony jako kat, w ktorym chcemy wykonac przelot 
- * @param[in] Dlugosc - dlugosc przelotu
+ * oraz o odleglosc pobrana od uzytkownika.
  * 
  * @retval true - gdy wszystkie operacje powiodly sie
  * @retval false - ktoras z operacji nie zostala wykonana prawidlowo

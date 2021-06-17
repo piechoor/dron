@@ -249,6 +249,7 @@ bool Scena::UsunPrzeszkode() {
  * jako argumenty jej wywolania. Zapisuje ta sciezkie do pliku i wyswietla
  * ja na scenie.
  * 
+ * @param[in] WspTrasy - wspolrzedna poczatka trasy
  * @param[in] Dlugosc - dlugosc trasy przelotu drona
  * @param[in] Kat  - kat o ktory obroci sie dron
  * 
@@ -306,19 +307,49 @@ bool Scena::ZerujSciezkeLotu() {
     return true;
 }
 
-bool Scena::SprMozliwosciLadowania(const Wektor3D &SrodekDrona, double PromienDrona, const shared_ptr<Dron> &Dron) const{
+/**
+ * Sprawdza mozliwosc ladowania drona na scenie, tzn sprawdza czy
+ * aktywny dron nie przecina obrysu zadnej z przeszkod (oprocz siebie).
+ * Jezeli ladowisko jest niedostepne wyswietla komunikat o rodzaju przeszkody.
+ * 
+ * @param[in] SrodekDrona - wspolrzedne srodka aktywnego drona
+ * @param[in] PromienDrona - promien aktywnego drona
+ * @param[in] Dron - wskaznik wspoldzielony na drona
+ * 
+ * @retval true - ladowanie jest mozlie
+ * @retval false - na ladowisku jest przeszkoda
+ */
+bool Scena::SprMozliwosciLadowania(const Wektor3D &SrodekDrona,
+                                   double PromienDrona,
+                                   const shared_ptr<Dron> &Dron) const {
+
     for (const shared_ptr<ObiektSceny> &Ob : Przeszkody) {
         if (Ob == Dron) continue;
         if (Ob->SprKolizje(SrodekDrona, PromienDrona)) {
             cout << endl << "Ladowisko niedostepne!" << endl;
-            cout << "Wykryto element powierzchni typu: \"" << Ob->Nazwa() << "\"." << endl << endl;
-            return true;
-            }
+            cout << "Wykryto element powierzchni typu: \"" 
+                 << Ob->Nazwa() << "\"." << endl << endl;
+            return false;
+        }
     }
     
-    return false;
+    return true;
 } 
 
+/**
+ * Metoda realizujaca przelot drona o zadane parametry na scenie.
+ * 
+ * Najpierw wyswietla sciezke lotu, wznosi drona na bezpieczna wysokosc,
+ * wykonuje poziomy przelot, sprawdza czy dostepne jest ladowisko i laduje jezeli
+ * tak, a jezeli nie to do skutku leci dalej na bezpieczna odleglosc i aktualizuje
+ * sciezke przelotu drona. Nastepnie opuszcza drona na powierzchnie i usuwa trase przelotu.
+ * 
+ * @param[in] Kierunek - kat w ktorym dron ma sie przemiescic
+ * @param[in] Dlugosc - dlugosc o jaka dron ma sie przemiescic
+ * 
+ * @retval true - udany przelot drona
+ * @retval false - operacja nie powiodla sie
+ */
 bool Scena::PrzelotDrona(double Kierunek, double Dlugosc) {
 
     Wektor3D PolPoczDrona = PobierzAktywnegoDrona().ZwrocWsp();
@@ -333,14 +364,15 @@ bool Scena::PrzelotDrona(double Kierunek, double Dlugosc) {
     PobierzAktywnegoDrona().ObrocDrona(Kierunek, Lacze);
     PobierzAktywnegoDrona().WykonajPoziomyLot(Dlugosc, Lacze);
 
-    while(SprMozliwosciLadowania(PobierzAktywnegoDrona().ZwrocWsp(),
+    while(!SprMozliwosciLadowania(PobierzAktywnegoDrona().ZwrocWsp(),
                               PobierzAktywnegoDrona().ZwrocPromien(),
                               PobierzWskAktywnegoDrona())) {
         cout << "Lot zostal wydluzony." << endl 
              << "Poszukiwanie wolnego ladowiska." << endl << endl;
         Dlugosc += BEZPIECZNA_ODLEGLOSC;
         if(!ZerujSciezkeLotu()) return false;
-        if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona)) return false;
+        if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona))
+            return false;
         PobierzAktywnegoDrona().WykonajPoziomyLot(BEZPIECZNA_ODLEGLOSC, Lacze);
     }
 
