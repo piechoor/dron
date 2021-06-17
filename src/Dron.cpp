@@ -172,8 +172,8 @@ bool Dron::WykonajPionowyLot(double Wysokosc, PzG::LaczeDoGNUPlota &Lacze) {
 
      if (Wysokosc >= 0) {
           while (PrzeleconyDystans < Wysokosc) {
-               Polozenie[2] += KROK_LOTU_DRONA;
-               PrzeleconyDystans += KROK_LOTU_DRONA;
+               Polozenie[2] += KROK_WZNOSZENIA__DRONA;
+               PrzeleconyDystans += KROK_WZNOSZENIA__DRONA;
                ObrocRotory(KROK_OBROTU_ROTORA);
                OblicziZapisz_WspGlb_Drona();
                usleep(CZAS_KROKU);
@@ -182,8 +182,8 @@ bool Dron::WykonajPionowyLot(double Wysokosc, PzG::LaczeDoGNUPlota &Lacze) {
      }
      else {
           while (PrzeleconyDystans > Wysokosc) {
-               Polozenie[2] -= KROK_LOTU_DRONA;
-               PrzeleconyDystans -= KROK_LOTU_DRONA;
+               Polozenie[2] -= KROK_WZNOSZENIA__DRONA;
+               PrzeleconyDystans -= KROK_WZNOSZENIA__DRONA;
                ObrocRotory(KROK_OBROTU_ROTORA);
                OblicziZapisz_WspGlb_Drona();
                usleep(CZAS_KROKU);

@@ -18,11 +18,11 @@ Scena::Scena() {
 
     this->InicjujLacze();
 
-    Wektor3D Pol(30,150,0), Sk(20,20,200);
+    Wektor3D Pol(30,150,0), Sk(20,20,150);
     double testOrient = 45;
     DodajPrzeszkode_Gora(Sk, Pol, testOrient);
 
-    Pol = {170, 120, 0}; Sk = {30,60,100}; testOrient = 15;
+    Pol = {170, 120, 0}; Sk = {30,60,80}; testOrient = 15;
     DodajPrzeszkode_Gora(Sk, Pol, testOrient);
 
     Pol = {100, 180, 0}; Sk = {30,80,130}; testOrient = 95;
@@ -310,7 +310,8 @@ bool Scena::SprMozliwosciLadowania(const Wektor3D &SrodekDrona, double PromienDr
     for (const shared_ptr<ObiektSceny> &Ob : Przeszkody) {
         if (Ob == Dron) continue;
         if (Ob->SprKolizje(SrodekDrona, PromienDrona)) {
-            cout << "Kolizja z obiektem: \"" << Ob->Nazwa() << "\"." << endl;
+            cout << endl << "Ladowisko niedostepne!" << endl;
+            cout << "Wykryto element powierzchni typu: \"" << Ob->Nazwa() << "\"." << endl << endl;
             return true;
             }
     }
@@ -325,7 +326,7 @@ bool Scena::PrzelotDrona(double Kierunek, double Dlugosc) {
 
     if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona))
         return false;
- 
+    cout << endl << "Rysuje zaplanowana sciezke lotu ..." << endl;
     cout << endl << endl << "Realizacja przelotu ..." << endl << endl;
 
     PobierzAktywnegoDrona().WykonajPionowyLot(BEZPIECZNA_WYSOKOSC, Lacze);
@@ -335,14 +336,19 @@ bool Scena::PrzelotDrona(double Kierunek, double Dlugosc) {
     while(SprMozliwosciLadowania(PobierzAktywnegoDrona().ZwrocWsp(),
                               PobierzAktywnegoDrona().ZwrocPromien(),
                               PobierzWskAktywnegoDrona())) {
+        cout << "Lot zostal wydluzony." << endl 
+             << "Poszukiwanie wolnego ladowiska." << endl << endl;
         Dlugosc += BEZPIECZNA_ODLEGLOSC;
         if(!ZerujSciezkeLotu()) return false;
         if(!RysujSciezkeLotu(PolPoczDrona, Dlugosc, Kierunek + OrientacjaDrona)) return false;
         PobierzAktywnegoDrona().WykonajPoziomyLot(BEZPIECZNA_ODLEGLOSC, Lacze);
     }
 
+    cout << "Ladowisko dostepne." << endl << "Rozpoczecie procedury ladowania." << endl;
+
     PobierzAktywnegoDrona().WykonajPionowyLot(-BEZPIECZNA_WYSOKOSC, Lacze);
     
+    cout << endl << endl << "Dron wyladowal ..." << endl << endl;
 
     if(!ZerujSciezkeLotu()) return false;
     

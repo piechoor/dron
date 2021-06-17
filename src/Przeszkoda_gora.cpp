@@ -27,32 +27,25 @@ Gora::Gora(unsigned int NrGory) {
  */
 bool Gora::SprKolizje(const Wektor3D &Polozenie, double Promien) {
 
+    Wektor3D PolDrona = Polozenie, PolPrzeszkody = this->Polozenie;
+    PolDrona[2] = 0;
+    PolPrzeszkody[2] = 0;
+
     //Wyznaczenie wektora w ukladzie lokalnym wskazujacego na jeden z wierzcholkow
     Wektor3D WekPomoc(0.5*this->Skala[0], 0.5*this->Skala[1],0);
     Macierz3x3 MacObr; UstawRotacjeZ(MacObr, this->Orientacja);
 
     //Wyznaczenie wektorow wskazujacych na 4 wierzcholki w ukladzie globalnym
-    Wektor3D WskNaWierz[4];
-    WskNaWierz[0] = MacObr * WekPomoc + this->Polozenie; WekPomoc[0] *= (-1); //(X,Y)
-    WskNaWierz[1] = MacObr * WekPomoc + this->Polozenie; WekPomoc[1] *= (-1); //(-X,Y)
-    WskNaWierz[2] = MacObr * WekPomoc + this->Polozenie; WekPomoc[0] *= (-1); //(-X,-Y)
-    WskNaWierz[3] = MacObr * WekPomoc + this->Polozenie;                     //(X,-Y)
+    Wektor3D WskNaWierz = MacObr * WekPomoc + PolPrzeszkody;
 
-    //Sprawdzenie czy w okregu wyznaczonym przez drona znajduje sie jakis wierzcholek
-    //Zgodnie z nierownoscia (x-x0)^2+(y-y0)^2<=R^2
-    for (unsigned int i = 0; i < 4; ++i) {
-        if (pow((WskNaWierz[i][0]-Polozenie[0]),2) + pow((WskNaWierz[i][1]-Polozenie[1]),2) <= pow(Promien,2))
-            return true;
-    }
+    //Wyznaczenie polowy przekatnej przeszkody
+    double PolPrzek = WskNaWierz.Modul(PolPrzeszkody);
 
-    //Sprawdzenie czy dron znajduje sie w przeszkodzie
-    //Jest tak, gdy wszystkie wierzcholki przeszkody sa poza obrysem drona (sprawdzone wyzej)
-    //i jezeli odleglosc srodka drona od srodka przeszkody jest mniejsza od polowy dlugosci krotszego boku
-    // double DlugoscBoku1 = WskNaWierz[0].Modul(WskNaWierz[1]);
-    // double DlugoscBoku2 = WskNaWierz[0].Modul(WskNaWierz[3]);
-    // double OdlSrodkow = Polozenie.Modul(Polozenie);
-    // if (OdlSrodkow+Promien > DlugoscBoku1/2 || OdlSrodkow+Promien > DlugoscBoku2/2 )
-    //     return true;
+    //Odleglosc srodkow drona i przeszkody
+    double OdlSrodkow = PolDrona.Modul(PolPrzeszkody);
+
+    if (Promien + PolPrzek > OdlSrodkow)
+        return true;
 
     return false;
 }
